@@ -1,0 +1,122 @@
+.hero {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
+// $Board
+.board__container {
+    position:absolute;
+    width: 100vw;
+    height: 100%;
+    bottom: 30vh;
+    perspective: 800px;
+    transform-style: preserve-3d;
+    perspective-origin: 50% 100%;
+    // background-color: grey;
+
+    @media screen and (min-width: $medium) {
+        bottom: 22vh;
+    }
+}
+
+.board__img {
+    width: 80vw;
+    transform-origin: center;
+    transform: translate3d(-50%, 0px, 0px);
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    display: block;
+    margin: auto;
+    z-index: $zindex-2;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+
+    @media screen and (min-width: $medium) {
+        width: 40vw;
+    }
+}
+
+.board__img.reset {
+    transition: all 0.7s cubic-bezier(1, 0.01, 0.04, 1.04);
+    transform: translateY(0px);
+}
+
+.board__img.levitate {
+    transition: $cubicB-1;
+    animation: levitate 6s ease-in-out infinite;
+}
+
+
+// $Shadow
+.shadow {
+    width: 100vw;
+    position: absolute;
+    opacity: 0.7;
+    bottom: 0;
+    left: 50%;
+    transform-origin: top;
+    transform: translate3d(-50%, 50%, 0px) scale(1.0);
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    @media screen and (min-width: $medium) {
+        width: 45vw;
+    }
+}
+
+
+// $Glitch
+.glitch {
+    position: relative;
+}
+
+.glitch-2,
+.glitch-3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch-2 {
+    z-index: -1;
+    left: 40px;
+    clip: rect(random(20)+px, 9999px, random(20)+px, 0);
+    animation: glitch-anim 1.5s infinite linear alternate-reverse;
+}
+
+.glitch-3 {
+    left: -40px;
+    clip: rect(random(20)+px, 9999px, random(20)+px, 0);
+    animation: glitch-anim 1.5s infinite linear alternate-reverse;
+}
+
+
+@keyframes glitch-anim {
+    $steps: 30;
+    @for $i from 0 through $steps {
+        #{percentage($i*(1/$steps))} {
+            clip: rect(random(400)+px, 9999px, random(400)+px, 0);
+    }
+  }
+}
+
+@keyframes levitate {
+	0% {
+        transform: translate3d(-50%, 0px, 0px);
+	}
+	50% {
+        transform: translate3d(-50%, -20px, 0px);
+	}
+	100% {
+        transform: translate3d(-50%, 0px, 0px);
+	}
+}
