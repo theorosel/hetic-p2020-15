@@ -1,1 +1,1 @@
-console.log('yo');
+import map from './utils/map.js'
