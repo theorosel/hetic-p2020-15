@@ -1,0 +1,121 @@
+.control {
+    width: 200px;
+    margin-left: auto;
+    height: 1px;
+    position: absolute;
+    bottom: 8rem;
+    left: 50%;
+    transform: translateX(-50%);
+
+    @media screen and (min-width: $medium) {
+        bottom: 5rem;
+    }
+}
+
+.line {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border: dashed 0.5px $grey;
+    pointer-events: none;
+    z-index: $zindex;
+}
+
+.cursor {
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    background-color: transparent;
+    position: absolute;
+    transform: translate3d(0, 0, 0);
+    top: -30px;
+    left: -30px;
+    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: grab;
+    z-index: $zindex-3;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.cursor__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.cursor.start {
+    transform: translate3d(-10px) !important;
+    transition: $cubicB-1 !important;
+}
+
+.progress {
+    position: absolute;
+    transform: rotate(-180deg);
+    transform-origin: center;
+    background-color: transparent;
+    pointer-events: none;
+    cursor: grab;
+    cursor: move; /* fallback if grab cursor is unsupported */
+}
+
+.cursor__dot__target {
+    width: 4px;
+    height: 4px;
+    border-radius: 100%;
+    background-color: black;
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    z-index: $zindex-2;
+}
+
+.cursor__dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    left: 24.5px;
+    bottom: 24.5px;
+}
+
+.dot__start {
+    background-color: $grey;
+}
+
+.dot__start--blue {
+    background-color: $blue;
+    opacity: 0;
+}
+
+.drag__value {
+    margin-left: 100px;
+    margin-top: 50px;
+    font-size: 24px;
+}
+
+
+
+.progress__meter,
+.progress__value {
+    fill: none;
+}
+
+.progress__meter {
+    stroke: $grey;
+}
+
+.progress__value {
+    stroke: $blue;
+    stroke-dasharray: 340;
+    stroke-dashoffset: 340;
+}
+
+.progress__value.reset {
+    transition: $cubicB-1;
+}
+
+.progress.reset {
+    transition: $cubicB-1;
+}

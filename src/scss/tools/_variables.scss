@@ -1,8 +1,11 @@
 @charset "UTF-8";
 
 // Colors
+$grey : #ebebeb;
+$blue: #0760fe;
 
 // Transitions
+$cubicB-1: all 0.7s cubic-bezier(1, 0.01, 0.04, 1.04);
 
 // Z-index
 $zindex: 1;
@@ -12,7 +15,7 @@ $zindex-4: 15;
 $zindex-5: 20;
 
 // Breakpoints
-$phone: 544px;
-$tablet: 768px;
-$desktop: 992px;
-$wide-desktop: 1200px;
+$xSmall: 544px;
+$small: 768px;
+$medium: 992px;
+$large: 1200px;
