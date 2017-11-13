@@ -1,3 +1,5 @@
+import { enterInView, completelyInView, halfInView } from './utils/view.js'
+import getScrollPercent from './utils/scroll.js'
 import map from './utils/map.js'
 
 class Hero {
@@ -30,7 +32,6 @@ class Hero {
         }
     }
 
-
     /*
      * init()
      * Build the drag system, Set inital data
@@ -42,7 +43,7 @@ class Hero {
             this.cursor.obj.active = true
             this.$el.board.classList.remove('levitate')
         })
-
+        
         this.cursor.on('panmove', (event) => {
             this.cursorPosition = Math.round(this.$el.cursor.getBoundingClientRect().left) + (this.$el.cursor.offsetWidth / 2)
             let value = map(this.cursorPosition, this.cursor.obj.leftLimit, this.cursor.obj.rightLimit, 0, 1);
@@ -63,6 +64,17 @@ class Hero {
                         ease: Power0.easenone
                     })
 
+                    new TweenMax(this.$el.board, 0.3, {
+                        y: - (this.temp_move / 2),
+                        scale: 1 + (this.temp_move / 1500),
+                        ease: Power0.easenone
+                    })
+
+                    new TweenMax(this.$el.shadow, 0.3, {
+                        scale: 1 + (this.temp_move / 1500),
+                        ease: Power0.easenone
+                    })
+
                     // Update Cursor strock procgress
                     this.updateStroke(value)
                 }
@@ -77,7 +89,6 @@ class Hero {
 
         this.cursor.on('panend', (event) => {
             let middle = Math.round(this.$el.line.getBoundingClientRect().width / 2)
-            this.$el.board.classList.add('levitate')
 
             if (this.temp_move >= 0 && this.temp_move >= middle) {
 
@@ -93,12 +104,19 @@ class Hero {
                     ease: Power3.easeOut
                 })
 
+                new TweenMax(this.$el.board, 0.7, {
+                    y: - (this.lineWidth / 2),
+                    ease: Power0.easenone
+                })
+
                 // ... Call heroLeave function
                 setTimeout( () => {
                     alert("Hello");
                 }, 700);
             }
             else if (this.temp_move < middle) {
+                // this.$el.board.classList.add('levitate')
+
                 // Update Cursor position
                 new TweenMax(this.$el.cursor, 0.7, {
                     x: 0,
@@ -108,6 +126,11 @@ class Hero {
                 new TweenMax(this.$el.strokeProgress, 0.7, {
                     strokeDashoffset: this.strokeCircum,
                     ease: Power3.easeOut
+                })
+
+                new TweenMax(this.$el.board, 0.7, {
+                    y: 0,
+                    ease: Power0.easenone
                 })
 
             }
@@ -135,7 +158,6 @@ class Hero {
             })
         }
         else {
-
             console.log('mobile');
             this.$el.container.addEventListener('devicemotion', (event) => {
                 // ... Do something on mobile using gyroscope

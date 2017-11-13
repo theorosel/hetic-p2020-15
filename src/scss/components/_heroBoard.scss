@@ -2,6 +2,8 @@
     position: relative;
     height: 100vh;
     width: 100vw;
+    overflow: hidden;
+    z-index: $zindex;
 }
 
 // $Board
@@ -16,7 +18,7 @@
     // background-color: grey;
 
     @media screen and (min-width: $medium) {
-        bottom: 22vh;
+        bottom: 25vh;
     }
 }
 

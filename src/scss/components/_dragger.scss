@@ -6,6 +6,7 @@
     bottom: 8rem;
     left: 50%;
     transform: translateX(-50%);
+    z-index: $zindex-5;
 
     @media screen and (min-width: $medium) {
         bottom: 5rem;
