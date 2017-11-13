@@ -2,6 +2,7 @@ hetic-p2020-15
 ==============
 
 Lexus Slide Front-end project.
+Online version :point_right: [here](https://hetic-p2020-15.netlify.com/)
 
 ## Installation
 - Open project folder
