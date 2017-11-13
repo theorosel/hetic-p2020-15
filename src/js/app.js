@@ -1,3 +1,5 @@
+import {TweenMax, Power0} from 'gsap'
+import Hammer from 'hammerjs'
 import { enterInView, completelyInView, halfInView } from './utils/view.js'
 import getScrollPercent from './utils/scroll.js'
 import map from './utils/map.js'
@@ -45,6 +47,7 @@ class Hero {
         })
         
         this.cursor.on('panmove', (event) => {
+            
             this.cursorPosition = Math.round(this.$el.cursor.getBoundingClientRect().left) + (this.$el.cursor.offsetWidth / 2)
             let value = map(this.cursorPosition, this.cursor.obj.leftLimit, this.cursor.obj.rightLimit, 0, 1);
             this.temp_move = Math.round(event.deltaX)
@@ -150,8 +153,8 @@ class Hero {
                 new TweenMax(this.$el.boardContainer, 0.9, {
                     x: mapX * this.rotationCoef,
                     y: mapY * this.rotationCoef,
-                    // rotationX: mapX * this.rotationCoef,
-                    // rotationY: mapY * this.rotationCoef,
+                    rotationX: mapX * this.rotationCoef,
+                    rotationY: mapY * this.rotationCoef,
                     rotationZ: 0,
                     ease: Power0.easeOut
                 })
