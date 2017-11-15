@@ -1,5 +1,9 @@
 .hero {
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
     height: 100vh;
     width: 100vw;
     overflow: hidden;
@@ -15,7 +19,6 @@
     perspective: 800px;
     transform-style: preserve-3d;
     perspective-origin: 50% 100%;
-    // background-color: grey;
 
     @media screen and (min-width: $medium) {
         bottom: 25vh;
@@ -24,7 +27,7 @@
 
 .board__img {
     width: 80vw;
-    transform-origin: center;
+    transform-origin: bottom;
     transform: translate3d(-50%, 0px, 0px);
     position: absolute;
     left: 50%;
@@ -55,13 +58,13 @@
 
 
 // $Shadow
-.shadow {
+.board__shadow {
     width: 100vw;
     position: absolute;
     opacity: 0.7;
     bottom: 0;
     left: 50%;
-    transform-origin: top;
+    transform-origin: center;
     transform: translate3d(-50%, 50%, 0px) scale(1.0);
     img {
         max-width: 100%;

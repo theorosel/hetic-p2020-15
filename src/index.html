@@ -17,16 +17,27 @@
     </head>
     <body>
         <!-- $Hero -->
+        <div class="loader">
+            <div class="loader__cover">
+                <div class="loader__cover__overlay"></div>
+                <img class="loader__cover__picture" data-preload="assets/img/loader-cover.jpg" alt="">
+            </div>
+            <div class="loader__parts">
+                <div class="loader__part"></div>
+                <div class="loader__part"></div>
+                <div class="loader__part"></div>
+            </div>
+        </div>
         <div class="hero">
             <!-- $Board -->
             <div class="board__container">
-                <div class="board__img levitate">
-                    <img class="glitch" src="assets/img/board.png" alt="">
-                    <img class="glitch-2" src="assets/img/board.png" alt="">
-                    <img class="glitch-3" src="assets/img/board.png" alt="">
+                <div class="board__img">
+                    <img class="glitch" data-src="assets/img/board.png">
+                    <img class="glitch-2" data-src="assets/img/board.png">
+                    <img class="glitch-3" data-src="assets/img/board.png">
                 </div>
-                <div class="shadow">
-                    <img src="assets/img/shadow.png" alt="">
+                <div class="board__shadow">
+                    <img data-src="assets/img/shadow.png">
                 </div>
             </div>
             <!-- $Dragger -->
