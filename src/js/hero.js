@@ -1,6 +1,7 @@
 import {TweenMax, Power0, Power4} from 'gsap'
 import Preloader from './components/Preloader'
 import Loader from './components/Loader'
+import BoardScene from './components/BoardScene'
 
 const preloader = new Preloader()
 
@@ -24,7 +25,10 @@ preloader.on('complete', () => {
             const $dragCursorDot = document.querySelectorAll('.cursor__dot')
             const $dragLine = document.querySelector('.control__line')
             const $dragCircle = document.querySelector('.progress__meter')
-            const timeline = new TimelineMax()
+
+            const boardScene = new BoardScene(document.querySelector('.hero'))
+            const timeline = new TimelineMax({ onComplete: boardScene.init() })
+            console.log(boardScene)
 
             timeline
             .staggerTo($loaderParts, 0.9, {

@@ -1,24 +1,23 @@
 import {TweenMax, Power0, Power2, Back, Expo, Circ, TimelineLite} from 'gsap'
 import Hammer from 'hammerjs'
-import { enterInView, completelyInView, halfInView } from './utils/view.js'
-import getScrollPercent from './utils/scroll.js'
-import map from './utils/map.js'
+import { enterInView, completelyInView, halfInView } from '../utils/view.js'
+import getScrollPercent from '../utils/scroll.js'
+import map from '../utils/map.js'
 
-class Hero {
+class BoardScene {
     constructor(el) {
         this.$el                 = {}
         this.$el.container       = el
         this.$el.width           = this.$el.container.offsetWidth
         this.$el.height          = this.$el.container.offsetHeight
-        this.$el.line            = this.$el.container.querySelector('.line')
+        this.$el.line            = this.$el.container.querySelector('.control__line')
         this.$el.cursor          = this.$el.container.querySelector('.cursor')
-        this.$el.cursorDot       = this.$el.container.querySelector('.dot__start--blue')
         this.$el.strokeCircle    = this.$el.container.querySelector('.progress')
         this.$el.strokeProgress  = this.$el.container.querySelector('.progress__value')
         this.$el.boardContainer  = this.$el.container.querySelector('.board__container')
         this.$el.board           = this.$el.container.querySelector('.board__img')
         this.rotationCoef        = 20
-        this.$el.shadow          = this.$el.container.querySelector('.shadow')
+        this.$el.shadow          = this.$el.container.querySelector('.board__shadow')
 
         this.cursor         = new Hammer(this.$el.cursor)
         this.cursorPosition = 0
@@ -40,17 +39,8 @@ class Hero {
      * and place event listeners
      */
     init() {
-        const tl = new TimelineMax()
-        tl.from(this.$el.board, 2, {
-            y: - this.$el.height,
-            ease: Expo.easeOut
-        },"debut")
-        tl.from(this.$el.shadow, 2, {
-            scale: 0.3,
-            ease: Expo.easeOut
-        },"debut")
-
-
+        console.log('init')
+        
         this.cursor.on('panstart', (event) => {
             this.cursor.obj.active = true
             this.$el.board.classList.remove('levitate')
@@ -62,18 +52,14 @@ class Hero {
             let value = map(this.cursorPosition, this.cursor.obj.leftLimit, this.cursor.obj.rightLimit, 0, 1);
             this.temp_move = Math.round(event.deltaX)
 
+            console.log(this.cursorPosition / 1000)
+
             if (this.cursor.obj.active != false) {
                 if (value >= 0 && value <= 1) {
 
                     // Update Cursor position
                     new TweenMax(this.$el.cursor, 0.3, {
                         x: this.temp_move,
-                        ease: Power0.easenone
-                    })
-
-                    // Update Cursor dot blue opacity
-                    new TweenMax(this.$el.cursorDot, 0.3, {
-                        opacity: value,
                         ease: Power0.easenone
                     })
 
@@ -213,5 +199,4 @@ class Hero {
     }
 }
 
-const hero = new Hero(document.querySelector('.hero'))
-hero.init()
+export default BoardScene;

@@ -34,6 +34,7 @@
     bottom: 0;
     display: block;
     margin: auto;
+    pointer-events: none;
     z-index: $zindex-2;
 
     img {
@@ -72,6 +73,7 @@
     opacity: 0.7;
     bottom: 0;
     left: 50%;
+    pointer-events: none;
     transform-origin: center;
     transform: translate3d(-50%, 50%, 0px) scale(1.0);
     img {
