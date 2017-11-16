@@ -1,7 +1,10 @@
-import {TweenMax, Power0, Power4} from 'gsap'
+import {TweenMax, Power2, Expo} from 'gsap'
 import Preloader from './components/Preloader'
 import Loader from './components/Loader'
 import BoardScene from './components/BoardScene'
+import TextSplitter from './components/TextSplitter'
+import TextSlider from './components/TextSlider'
+import { setTimeout } from 'timers';
 
 const preloader = new Preloader()
 
@@ -26,9 +29,19 @@ preloader.on('complete', () => {
             const $dragLine = document.querySelector('.control__line')
             const $dragCircle = document.querySelector('.progress__meter')
 
+            const $headlineParts = new TextSplitter(document.querySelector('.headline'))
+            const $headlineRoll  = new TextSlider($headlineParts.$words[$headlineParts.$words.length - 1])
+
+            // console.log($headlineParts.$words[$headlineParts.$words.length - 1])
+            // console.log($headlineParts.$words.length)
+
             const boardScene = new BoardScene(document.querySelector('.hero'))
-            const timeline = new TimelineMax({ onComplete: boardScene.init() })
-            console.log(boardScene)
+            const timeline = new TimelineMax()
+
+            const introComplete = () => {
+                $headlineRoll.play()
+                boardScene.init()
+            }
 
             timeline
             .staggerTo($loaderParts, 0.9, {
@@ -73,9 +86,14 @@ preloader.on('complete', () => {
                 strokeDashoffset: 0,
                 ease: Expo.easeInOut
             }, '-= 1.2')
+            .staggerFrom($headlineParts.$words, 0.8, {
+                y: '100%',
+                ease: Expo.easeInOut
+            }, 0.1, '-= 0.6')
             .set($loader, {
                 display: 'none'
             })
+            .call(introComplete)
         }, 1000);
     })
 })
