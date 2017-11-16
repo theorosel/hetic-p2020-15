@@ -1,15 +1,16 @@
 @charset "UTF-8";
 
-//Reset
+// Reset
 @import 'base/reset';
 
 // Tools
 @import 'tools/variables';
+@import 'tools/mixins';
 
 // Bases
 @import 'base/base';
 
-//Components
+// Components
 @import 'components/dragger';
 @import 'components/heroBoard';
 @import 'components/loader';

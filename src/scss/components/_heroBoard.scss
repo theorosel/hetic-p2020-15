@@ -20,9 +20,9 @@
     transform-style: preserve-3d;
     perspective-origin: 50% 100%;
 
-    @media screen and (min-width: $medium) {
+    @include responsive($medium) {
         bottom: 25vh;
-    }
+	}
 }
 
 .board__img {
@@ -41,9 +41,17 @@
         height: auto;
     }
 
-    @media screen and (min-width: $medium) {
-        width: 40vw;
+    @include responsive($medium) {
+        width: 60vw;
+	}
+
+    @include responsive($large) {
+        width: 50vw;
     }
+    
+    @include responsive($xlarge) {
+        width: 40vw;
+	}
 }
 
 .board__img.reset {
@@ -71,9 +79,17 @@
         height: auto;
     }
 
-    @media screen and (min-width: $medium) {
-        width: 45vw;
+    @include responsive($medium) {
+        width: 65vw;
     }
+
+    @include responsive($large) {
+        width: 55vw;
+    }
+    
+    @include responsive($xlarge) {
+        width: 45vw;
+	}
 }
 
 
