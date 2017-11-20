@@ -4,7 +4,6 @@ import Loader from './components/Loader'
 import BoardScene from './components/BoardScene'
 import TextSplitter from './components/TextSplitter'
 import TextSlider from './components/TextSlider'
-import { setTimeout } from 'timers';
 
 const preloader = new Preloader()
 

@@ -16,6 +16,7 @@ const sourcemaps   = require('gulp-sourcemaps')
 const autoprefixer = require('gulp-autoprefixer')
 const rename       = require('gulp-rename')
 const imagemin     = require('gulp-imagemin')
+const srcset       = require('gulp-srcset')
 const babel        = require('gulp-babel')
 const browserify   = require('browserify')
 const babelify     = require('babelify')
@@ -25,7 +26,7 @@ const browserSync  = require('browser-sync')
 const gulpif       = require('gulp-if')
 
 
-// Server
+// $Server
 gulp.task('liveserver', () => {
   browserSync.init({
     server: config.dist,
@@ -35,7 +36,7 @@ gulp.task('liveserver', () => {
 });
 
 
-// HTML
+// $Html
 gulp.task('html', () =>
     gulp.src(config.src + '*.html')
         .pipe(gulp.dest(config.dist))
@@ -44,7 +45,7 @@ gulp.task('html', () =>
 );
 
 
-// Sass
+// $Sass
 gulp.task('sass', () =>
     gulp.src(config.src + 'scss/*.scss')
         .pipe(plumber({errorHandler: notify.onError('Error : <%= error.message %>')}))
@@ -64,7 +65,7 @@ gulp.task('sass', () =>
 );
 
 
-// Javascript
+// $Javascript
 gulp.task('javascript', () =>
     browserify({
         entries: config.src + 'js/app.js',
@@ -81,17 +82,42 @@ gulp.task('javascript', () =>
 );
 
 
-// Images
+// $Srcset
+gulp.task('srcset', () => {
+    gulp
+        .src(config.src + 'img/src/*')
+        .pipe(
+            srcset([
+                {
+                    width: [1, 1920, 1280, 720, 560, 320],
+                    format: ['jpg', 'png']
+                }
+            ])
+        )
+        .pipe(gulp.dest(config.src + 'img/src'));
+});
+
+
+// $Images
 gulp.task('images', () =>
-    gulp.src(config.src + 'img/*')
-        .pipe(imagemin())
-        .pipe(gulp.dest(config.dist + 'assets/img'))
-        .pipe(browserSync.stream())
-        .pipe(notify('Images minified : <%= file.relative %> !'))
+gulp.src(config.src + 'img/*.{jpg, jpeg, png, gif}')
+    .pipe(imagemin())
+    .pipe(gulp.dest(config.dist + 'assets/img'))
+    .pipe(browserSync.stream())
+    .pipe(notify('Images minified : <%= file.relative %> !'))
 );
 
 
-// Fonts
+// $Videos
+gulp.task('videos', () =>
+gulp
+  .src(config.src + 'video/**/*')
+  .pipe(gulp.dest(config.dist + 'assets/video'))
+  .pipe(browserSync.stream())
+);
+
+
+// $Fonts
 gulp.task('fonts', () =>
     gulp.src(config.src + 'font/**/*')
         .pipe(gulp.dest(config.dist + 'assets/font'))
@@ -100,28 +126,28 @@ gulp.task('fonts', () =>
 );
 
 
-// vendors
-gulp.task('vendors', () =>
-    gulp.src(config.src + 'js/vendors/**/*')
-        .pipe(gulp.dest(config.dist + 'assets/js/vendors'))
-        .pipe(browserSync.stream())
-        .pipe(notify('Vendors updated : <%= file.relative %> !'))
+// $Src task
+gulp.task(
+    'srcset',
+    gulp.series('srcset')
 );
 
 
-// Watch
-gulp.task('watch', () => {
-    gulp.watch([config.src + 'js/*.js'], ['javascript']);
-    gulp.watch([config.src + 'scss/**/*.scss'], ['sass']);
-    gulp.watch([config.src + '*.html'], ['html']);
-    gulp.watch([config.src + 'img/*'], ['images']);
-    gulp.watch([config.src + 'font/*'], ['fonts']);
-    gulp.watch([config.src + 'js/vendors/*'], ['vendors']);
-});
+// $Build task
+gulp.task(
+    'build',
+    gulp.series('html', 'sass','javascript', 'images', 'videos', 'fonts')
+);
 
 
-// Build
-gulp.task('build', ['html', 'sass', 'javascript', 'images', 'fonts', 'vendors'], () => {});
+// $Dev task
+gulp.task(
+    'dev',
+    gulp.parallel('liveserver', () => {
+        gulp.watch(config.src + '**/*.html', gulp.parallel('html'));
+        gulp.watch(config.src + 'scss/**/*.scss', gulp.parallel('sass'));
+        gulp.watch(config.src + 'js/**/*.js', gulp.parallel('javascript'));
+        gulp.watch(config.src + 'font/*', gulp.parallel('fonts'));
+    })
+);
 
-// Dev
-gulp.task('dev', ['html', 'sass', 'javascript', 'liveserver', 'watch'], () => {});
