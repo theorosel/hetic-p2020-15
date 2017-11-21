@@ -31,9 +31,6 @@ preloader.on('complete', () => {
             const $headlineParts = new TextSplitter(document.querySelector('.headline'))
             const $headlineRoll  = new TextSlider($headlineParts.$words[$headlineParts.$words.length - 1])
 
-            // console.log($headlineParts.$words[$headlineParts.$words.length - 1])
-            // console.log($headlineParts.$words.length)
-
             const boardScene = new BoardScene(document.querySelector('.hero'))
             const timeline = new TimelineMax()
 
@@ -67,16 +64,20 @@ preloader.on('complete', () => {
                 scale: 0.1,
                 ease: Power2.easeInOut
             }, '-= 1.5')
+            .staggerFrom($headlineParts.$words, 2, {
+                y: - window.innerHeight / 2,
+                ease: Expo.easeInOut
+            }, - 0.023, '-= 1.6')
             .staggerFrom($dragCursorDot, 0.4, {
                 opacity: 0,
                 scaleX: 0,
                 ease: Expo.easeInOut
-            }, 0,'-= 0.2')
+            }, 0,'-= 1.6')
             .from($dragLine, 1.2, {
                 transformOrigin: 'right',
                 scaleX: 0,
                 ease: Expo.easeInOut
-            })
+            }, '-= 1.2')
             .from($dragCursor, 1.2, {
                 x: $dragLine.offsetWidth,
                 ease: Expo.easeInOut
@@ -85,15 +86,11 @@ preloader.on('complete', () => {
                 strokeDashoffset: 0,
                 ease: Expo.easeInOut
             }, '-= 1.2')
-            .staggerFrom($headlineParts.$words, 0.8, {
-                y: '100%',
-                ease: Expo.easeInOut
-            }, 0.1, '-= 0.6')
             .set($loader, {
                 display: 'none'
             })
             .call(introComplete)
-        }, 1000);
+        }, 10);
     })
 })
 

@@ -26,7 +26,7 @@ class TextSplitter {
                 }
 
                 $word.appendChild($wordInner)
-                this.$words.push($wordInner)
+                this.$words.push($word)
                 this.$el.container.appendChild($word)
             }
         )
