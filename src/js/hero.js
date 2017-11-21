@@ -55,7 +55,7 @@ preloader.on('complete', () => {
             .staggerTo($loaderParts, 1.5, {
                 y: window.innerHeight,
                 ease: Power2.easeInOut
-            }, 0.1, '+= 0.9')
+            }, 0.1, '+= 0.05')
             .from($board, 1.3, {
                 y: - window.innerHeight,
                 ease: Power2.easeInOut
@@ -90,7 +90,7 @@ preloader.on('complete', () => {
                 display: 'none'
             })
             .call(introComplete)
-        }, 10);
+        }, 1000);
     })
 })
 
