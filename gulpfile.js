@@ -100,7 +100,7 @@ gulp.task('srcset', () => {
 
 // $Images
 gulp.task('images', () =>
-gulp.src(config.src + 'img/*.{jpg, jpeg, png, gif}')
+gulp.src(config.src + 'img/*.{jpg,jpeg,png,gif}')
     .pipe(imagemin())
     .pipe(gulp.dest(config.dist + 'assets/img'))
     .pipe(browserSync.stream())
