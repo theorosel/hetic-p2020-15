@@ -3,6 +3,143 @@
     width: 100vw;
     height: 100vh;
     margin-top: 100vh;
-    background-color: yellow;
+    overflow: hidden;
     z-index: $zindex-2;
+
+    video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: $black;
+    }
+}
+
+.mask__container{
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.mask {
+    position: absolute;
+    will-change: transform;
+    width: calc(100vw / 2);
+
+    @include responsive($medium) {
+        width: calc(100vw / 3);
+	}
+}
+
+.mask__top {
+    top: 0;
+    transform-origin: 0 0;
+    transform: scaleY(0);
+    background-color: white;
+}
+.mask__top__1 {
+    height: 0;
+}
+
+.mask__top__2 {
+    height: calc(100vh / 3);
+    left: calc(100vw / 2);
+
+    @include responsive($medium) {
+        height: calc(100vh / 3);
+        left: calc(100vw / 3);
+	}
+}
+
+.mask__top__3 {
+    width: 0;
+    left: calc(100vw / 2);
+
+    @include responsive($medium) {
+        width: calc(100vw / 3);
+        height: calc((100vh / 3) * 2);
+        left: calc((100vw / 3) * 2);
+	}
+}
+
+.mask__bottom {
+    bottom: 0;
+    transform-origin: 0% 100%;
+    transform: scaleY(1);
+    background-color: white;
+}
+
+.mask__bottom__1 {
+    height: 0;
+}
+
+.mask__bottom__2 {
+    height: calc(100vh / 3);
+    left: calc(100vw / 2);
+
+    @include responsive($medium) {
+        height: calc(100vh / 3);
+        left: calc(100vw / 3);
+	}
+}
+
+.mask__bottom__3 {
+    width: 0;
+
+    @include responsive($medium) {
+        width: calc(100vw / 3);
+        height: calc((100vh / 3) * 2);
+        left: calc((100vw / 3) * 2);
+	}
+}
+
+.line {
+    position: absolute;
+    height: 100vh;
+    width: 1px;
+    background-color: white;
+    opacity: 0.4;
+}
+
+.line__1 {
+    left: calc(100vw / 2);
+
+    @include responsive($medium) {
+        left: calc(100vw / 3);
+	}
+}
+
+.line__2 {
+    width: 0;
+
+    @include responsive($medium) {
+        width: 1px;
+        left: calc((100vw / 3) * 2);
+	}
+}
+
+.test {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.part {
+    width: 100%;
+    height: calc(100vh / 3)
+}
+
+.part__1 {
+    background-color: white;
+}
+
+.part__2 {
+    background-color: white;
+}
+
+.part__3 {
+    background-color: white;
 }
