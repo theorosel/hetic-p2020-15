@@ -2,7 +2,7 @@ import axios from 'axios'
 
 class Loader {
     constructor() {
-        this.srcElements    = [].slice.call(document.querySelectorAll('[data-src]'))
+        this.srcElements    = [].slice.call(document.querySelectorAll('[data-load]'))
 
         this.requests       = []
         this.progressEvents = []
