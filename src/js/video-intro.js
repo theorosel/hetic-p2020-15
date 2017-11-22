@@ -3,7 +3,7 @@ import { enterInView, completelyInView } from './utils/view.js'
 import { getScrollPercent } from './utils/scroll.js'
 
 const $section = document.querySelector('.video-intro')
-const $video = document.querySelector('.video')
+const $video = document.querySelector('.video-intro__video')
 const $masksTop = document.querySelectorAll('.mask__top')
 const $masksBottom = document.querySelectorAll('.mask__bottom')
 
@@ -54,7 +54,7 @@ function updateMaskBottom(value) {
 window.addEventListener('scroll', () => {
     if (enterInView($section)) {
         let scrollPercent = getScrollPercent($section)
-        // $video.play()
+        $video.play()
         updateMaskTop(scrollPercent / 100)
     }
 
