@@ -34,12 +34,12 @@
             <!-- $Board scene -->
             <div class="board__container">
                 <div class="board__img">
-                    <img class="glitch" data-load="assets/img/board.png">
-                    <img class="glitch-2" data-load="assets/img/board.png">
-                    <img class="glitch-3" data-load="assets/img/board.png">
+                    <img class="glitch" src="assets/img/board.png" data-load>
+                    <img class="glitch-2" src="assets/img/board.png" data-load>
+                    <img class="glitch-3" src="assets/img/board.png" data-load>
                 </div>
                 <div class="board__shadow">
-                    <img data-load="assets/img/shadow.png">
+                    <img src="assets/img/shadow.png" data-load>
                 </div>
             </div>
             <!-- $Dragger -->
@@ -58,7 +58,7 @@
             </div>
         </div>
 
-         <!-- $video intro -->
+        <!-- $video intro -->
         <div class="video-intro">
             <video class="video" src="#" autoplay loop muted playsinline></video>
             <div class="mask__container">
@@ -76,6 +76,12 @@
             </div>
         </div>
 
+        <!-- $Board technique -->
+        <div class="lazy-test">
+            <img class="glitch lazyload" data-src="assets/img/board.png">
+            <img class="glitch lazyload" data-src="assets/img/board.png">
+            <img class="glitch lazyload" data-src="assets/img/board.png">
+        </div>
 
         <!-- JS import -->
         <script src="assets/js/bundle.js"></script>

@@ -13,10 +13,11 @@ class Loader {
     }
 
     init() {
+        console.log(this.srcElements)
         this.srcElements.forEach(element => {
             this.requests.push({
                 element,
-                name: 'data-src',
+                name: 'src',
                 progress: 0
             });
         });
@@ -30,10 +31,10 @@ class Loader {
                         this.updateProgress(index, percent);
                     }
                 })
-                if (request.name === 'data-src') {
-                    request.element.src = request.element.getAttribute(request.name);
-                    request.element.removeAttribute(request.name);
-                }
+                // if (request.name === 'data-load') {
+                //     request.element.src = request.element.getAttribute(request.name);
+                //     request.element.removeAttribute(request.name);
+                // }
                 // .then(function (response) {
                 //     request.element.src = request.element.getAttribute(request.name);
                 // })
