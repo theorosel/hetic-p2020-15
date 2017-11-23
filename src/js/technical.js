@@ -26,7 +26,7 @@ class fullCircle{
       width         = container.offsetWidth,
       height        = container.offsetHeight,
       angle         = -Math.PI / 2,
-      step          = (2*Math.PI) / dots.length
+      step          = (2 * Math.PI) / dots.length
 
       dots.forEach((dot) => {
         let x = Math.round(width/2 + radius * Math.cos(angle) - dot.offsetWidth/2),
@@ -226,7 +226,7 @@ const handleTechScroll = () => {
 }
 
 addEvent(window, 'scroll', handleTechScroll)
-addEvent(window, 'mousewheel', handleTechScroll)
-addEvent(window, 'DOMMouseScroll', handleTechScroll)
-addEvent(window, 'wheel', handleTechScroll)
-addEvent(window, 'MozMousePixelScroll', handleTechScroll)
+// addEvent(window, 'mousewheel', handleTechScroll)
+// addEvent(window, 'DOMMouseScroll', handleTechScroll)
+// addEvent(window, 'wheel', handleTechScroll)
+// addEvent(window, 'MozMousePixelScroll', handleTechScroll)

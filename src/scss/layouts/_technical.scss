@@ -56,9 +56,11 @@
 
 // Circle steps content
 .technical{
+    position: relative;
     width:100%;
     height:auto;
     min-height:310rem;
+    z-index: $zindex-2;
 }
 
 .technical__steps{

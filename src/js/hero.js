@@ -8,6 +8,7 @@ import TextSlider from './components/TextSlider'
 const preloader = new Preloader()
 
 preloader.on('complete', () => {
+    console.log('complete')
     const loader = new Loader()
     const $loader = document.querySelectorAll('.loader')
     const $loaderParts = document.querySelectorAll('.loader__part')

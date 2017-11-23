@@ -81,7 +81,6 @@ class Loader {
       
             case 'complete':
                 this.completeEvents.push({ callback });
-                console.log('complete')
                 break;
       
             default:

@@ -125,7 +125,7 @@ class BoardScene {
                     });
                 }, 1000);
             } else if (this.temp_move < middle) {
-                this.$el.board.classList.add('levitate')
+                // this.$el.board.classList.add('levitate')
 
                 // Update Cursor X position
                 TweenMax.to(this.$el.cursor, 0.7, {
