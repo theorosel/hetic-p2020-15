@@ -95,16 +95,16 @@ const moveSkate = () => {
         wholeSkate.style.left = skateLeft + '%'
         wholeSkate.style.top = skateTop + '%'
         wholeSkate.style.opacity = scrollPercent * 2.5 / 100
+
+        skateImages[0].classList.remove('explode-skate-1')
+        skateImages[2].classList.remove('explode-skate-2')
     }
-    else if(scrollPercent > 80 && scrollPercent < 120){
+    else{
         skateImages[0].style.position = 'fixed'
         skateImages[2].style.position = 'fixed'
 
-        skateTopPart    = scrollPercent / 2
-        skateBottomPart = scrollPercent / 2
-
-        skateImages[0].style.bottom = skateTopPart + '%'
-        skateImages[2].style.top = skateBottomPart + '%'
+        skateImages[0].classList.add('explode-skate-1')
+        skateImages[2].classList.add('explode-skate-2')
     }
 }
 
