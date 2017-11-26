@@ -2,11 +2,12 @@
     position: absolute;
     height: 100vh;
     width: 1px;
-    background-color: white;
+    background-color: black;
     opacity: 0.4;
+    z-index: $zindex-3;
 }
 
-.line--black {
+.line.line--black {
     background-color: black;
     opacity: 0.1;
 }

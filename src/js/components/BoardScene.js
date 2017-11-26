@@ -9,14 +9,15 @@ import map from '../utils/map.js'
 class BoardScene {
     /**
      * Create a Board Scene.
-     * @param {el} - the Dom element
-     * @param {window} - The viewport.
+     * @param {DOM} el - the Dom element
+     * @param {window} window - The viewport.
      */
     constructor(el, window) {
         this.$el                 = {}
         this.$el.container       = el
         this.$el.width           = this.$el.container.offsetWidth
         this.$el.height          = this.$el.container.offsetHeight
+        this.$el.control         = this.$el.container.querySelector('.control')
         this.$titleParts         = this.$el.container.querySelectorAll('.text-word')
         this.$el.line            = this.$el.container.querySelector('.control__line')
         this.$el.cursor          = this.$el.container.querySelector('.cursor')
@@ -255,6 +256,16 @@ class BoardScene {
             scale: 1 - (value / 100),
             ease: Power0.easenone
         })
+
+        if (value >= 50) {
+            this.$el.board.style.opacity = 0
+            this.$el.shadow.style.opacity = 0
+            this.$el.control.style.opacity = 0
+        } else {
+            this.$el.board.style.opacity = 1
+            this.$el.shadow.style.opacity = 0.7
+            this.$el.control.style.opacity = 1
+        }
     }
 
     /**
