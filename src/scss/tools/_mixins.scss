@@ -28,9 +28,9 @@
         font-weight: $font-weight;
         font-style: $font-style;
 
-        src: url('../../fonts/#{$file-path}.eot');
-        src: url('../../fonts/#{$file-path}.eot?#iefix') format('embedded-opentype'),
-        url('../../fonts/#{$file-path}.ttf') format('truetype'),
-        url('../../fonts/#{$file-path}.woff') format('woff'),
+        src: url('../fonts/#{$file-path}.eot');
+        src: url('../fonts/#{$file-path}.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/#{$file-path}.ttf') format('truetype'),
+        url('../fonts/#{$file-path}.woff') format('woff'),
     }
 }

@@ -119,7 +119,7 @@ gulp
 
 // $Fonts
 gulp.task('fonts', () =>
-    gulp.src(config.src + 'font/**/*')
+    gulp.src(config.src + 'fonts/**/*')
         .pipe(gulp.dest(config.dist + 'assets/font'))
         .pipe(browserSync.stream())
         .pipe(notify('Fonts updated : <%= file.relative %> !'))
