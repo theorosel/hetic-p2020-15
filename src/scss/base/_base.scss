@@ -6,6 +6,10 @@ html {
     width: 100%;
 }
 
+body.lock {
+    overflow: hidden;
+}
+
 
 h1 {
     font-family: $headline;

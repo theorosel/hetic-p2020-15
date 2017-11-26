@@ -5,7 +5,13 @@ import {getScrollPercent} from '../utils/scroll.js'
 import map from '../utils/map.js'
 
 
+/** Class construct and manage our board scene. */
 class BoardScene {
+    /**
+     * Create a Board Scene.
+     * @param {el} - the Dom element
+     * @param {window} - The viewport.
+     */
     constructor(el, window) {
         this.$el                 = {}
         this.$el.container       = el
@@ -42,142 +48,37 @@ class BoardScene {
      */
     init() {
         
+        // Listen when user take the cursor
         this.cursor.on('panstart', (event) => {
             this.cursor.obj.active = true
             this.$el.board.classList.remove('levitate')
         })
         
+        // Listen when user move the cursor
         this.cursor.on('panmove', (event) => {
-            
             this.cursorPosition = Math.round(this.$el.cursor.getBoundingClientRect().left) + (this.$el.cursor.offsetWidth / 2)
             let value = map(this.cursorPosition, this.cursor.obj.leftLimit, this.cursor.obj.rightLimit, 0, 1);
             this.temp_move = Math.round(event.deltaX)
 
-            if (this.cursor.obj.active != false) {
-                if (value >= 0 && value <= 1) {
-
-                    TweenMax.to(this.$el.cursor, 0.3, {
-                        x: this.temp_move,
-                        ease: Power0.easenone
-                    })
-
-                    TweenMax.to(this.$el.board, 0.3, {
-                        y: - (this.temp_move / 5),
-                        z: 0,
-                        scale: 1 + (this.temp_move / 1500),
-                        ease: Power0.easenone
-                    })
-
-                    TweenMax.to(this.$el.shadow, 0.3, {
-                        scale: 1 + (this.temp_move / 1500),
-                        ease: Power0.easenone
-                    })
-
-                    this.updateStroke(value)
-                    this.updateTitleParts(value)
-                }
-                if (this.cursorPosition >= this.cursor.obj.rightLimit) {
-                    this.cursor.obj.active = false
-                    this.cursor.obj.lock = true
-
-                    setTimeout( () => {
-                        TweenLite.to(window, 1.2, {
-                            scrollTo: window.innerHeight,
-                            ease: Power3.easeInOut
-                        });
-                    }, 1000);
-                }
-            }
+            this.boardMove(value)
         })
 
+        // Listen when user loose the cursor
         this.cursor.on('panend', (event) => {
-            let middle = Math.round(this.$el.line.getBoundingClientRect().width / 2)
-            if (this.temp_move >= 0 && this.temp_move >= middle) {
-                // Update Cursor position
-                TweenMax.to(this.$el.cursor, 0.7, {
-                    x: this.lineWidth,
-                    ease: Power3.easeOut
-                })
-                // Update Cursor Stroke circle
-                TweenMax.to(this.$el.strokeProgress, 0.7, {
-                    strokeDashoffset: 0,
-                    ease: Power3.easeOut
-                })
-
-                TweenMax.to(this.$el.board, 0.7, {
-                    y: - (this.lineWidth / 5),
-                    z: 0,
-                    ease: Power0.easenone
-                })
-
-                // this.$titleParts.forEach( 
-                //     (part, index) => {
-                //         TweenMax.to(part, 0.1, {
-                //             y: - ((value * (100 / ((index * 0.1) + 1)))),
-                //             ease: Power0.easenone
-                //         })
-                // });
-
-                setTimeout( () => {
-                    TweenLite.to(window, 2, {
-                        scrollTo: window.innerHeight,
-                        ease: Power3.easeInOut
-                    });
-                }, 1000);
-            } else if (this.temp_move < middle) {
-                // this.$el.board.classList.add('levitate')
-
-                // Update Cursor X position
-                TweenMax.to(this.$el.cursor, 0.7, {
-                    x: 0,
-                    ease: Power3.easeOut
-                })
-                // Update Cursor Stroke circle fill
-                TweenMax.to(this.$el.strokeProgress, 0.7, {
-                    strokeDashoffset: this.strokeCircum,
-                    ease: Power3.easeOut
-                })
-
-                // Update board Y position
-                TweenMax.to(this.$el.board, 0.7, {
-                    y: 0,
-                    ease: Power0.easenone
-                })
-
-                // Update title parts Y positions
-                this.$titleParts.forEach( 
-                    (part, index) => {
-                        TweenMax.to(part, 0.5, {
-                            y: 0,
-                            ease: Power0.easenone
-                        })
-                });
-
-            }
+            this.boardEnd(event)
         })
 
-        if (window.matchMedia("(min-width: 600px)").matches) {
-            this.$el.container.addEventListener('mousemove', (event) => {
-                let x = event.clientX
-                let y = event.clientY
-                let mapX = map(x, 0, this.$el.width, -1, 1)
-                let mapY = map(y, 0, this.$el.height, -1, 1)
+        // Listen user mouse move
+        this.$el.container.addEventListener('mousemove', (event) => {
+            let x = event.clientX
+            let y = event.clientY
+            let mapX = map(x, 0, this.$el.width, -1, 1)
+            let mapY = map(y, 0, this.$el.height, -1, 1)
 
-                TweenMax.to(this.$el.boardContainer, 0.7, {
-                    x: mapX * this.rotationCoef,
-                    y: mapY * this.rotationCoef,
-                    rotationZ: 0,
-                    ease: Power0.easeOut
-                })
-            })
-        } else {
-            console.log('mobile');
-            this.$el.container.addEventListener('devicemotion', (event) => {
-                // ... Do something on mobile using gyroscope
-                console.log(event)
-            })
-        }
+            this.boardMouseMove(mapX, mapY)
+        })
 
+        // Listen viewport resize
         window.addEventListener('resize', () => {
             this.resize()
         })
@@ -189,6 +90,128 @@ class BoardScene {
         })
     }
 
+    /**
+     * Get the board off the screen on z axis according to
+     * @method boardMouseMove
+     * @param {float} mapX : mouse position between -1 & 1 on the X axis
+     * @param {float} mapY : mouse position between -1 & 1 on the Y axis
+     */
+    boardMouseMove(mapX, mapY) {
+        TweenMax.to(this.$el.boardContainer, 0.7, {
+            x: mapX * this.rotationCoef,
+            y: mapY * this.rotationCoef,
+            rotationZ: 0,
+            ease: Power0.easeOut
+        })
+    }
+
+    /**
+     * Get the board off the screen on z axis according to
+     * @method boardMove
+     * @param {float} value : cursor position between -1 & 1 on the drag line
+     */
+    boardMove(value) {
+        if (this.cursor.obj.active != false) {
+            if (value >= 0 && value <= 1) {
+
+                TweenMax.to(this.$el.cursor, 0.3, {
+                    x: this.temp_move,
+                    ease: Power0.easenone
+                })
+
+                TweenMax.to(this.$el.board, 0.3, {
+                    y: - (this.temp_move / 5),
+                    z: 0,
+                    scale: 1 + (this.temp_move / 1500),
+                    ease: Power0.easenone
+                })
+
+                TweenMax.to(this.$el.shadow, 0.3, {
+                    scale: 1 + (this.temp_move / 1500),
+                    ease: Power0.easenone
+                })
+
+                this.updateStroke(value)
+                this.updateTitleParts(value)
+            }
+            if (this.cursorPosition >= this.cursor.obj.rightLimit) {
+                this.cursor.obj.active = false
+                this.cursor.obj.lock = true
+
+                setTimeout(() => {
+                    TweenLite.to(window, 1.2, {
+                        scrollTo: window.innerHeight,
+                        ease: Power3.easeInOut
+                    });
+
+                    document.body.classList.remove('lock');
+                }, 1000);
+            }
+        }
+    }
+
+    /**
+     * Get the board off the screen on z axis according to
+     * @method boardEnd
+     * @param {event} event : event return by Hammer
+     */
+    boardEnd() {
+        let middle = Math.round(this.$el.line.getBoundingClientRect().width / 2)
+        if (this.temp_move >= 0 && this.temp_move >= middle) {
+            // Update Cursor position
+            TweenMax.to(this.$el.cursor, 0.7, {
+                x: this.lineWidth,
+                ease: Power3.easeOut
+            })
+            // Update Cursor Stroke circle
+            TweenMax.to(this.$el.strokeProgress, 0.7, {
+                strokeDashoffset: 0,
+                ease: Power3.easeOut
+            })
+
+            TweenMax.to(this.$el.board, 0.7, {
+                y: - (this.lineWidth / 5),
+                z: 0,
+                ease: Power0.easenone
+            })
+
+            setTimeout(() => {
+                TweenLite.to(window, 2, {
+                    scrollTo: window.innerHeight,
+                    ease: Power3.easeInOut
+                });
+                document.body.classList.remove('lock');
+            }, 1000);
+        } else if (this.temp_move < middle) {
+            // this.$el.board.classList.add('levitate')
+
+            // Update Cursor X position
+            TweenMax.to(this.$el.cursor, 0.7, {
+                x: 0,
+                ease: Power3.easeOut
+            })
+            // Update Cursor Stroke circle fill
+            TweenMax.to(this.$el.strokeProgress, 0.7, {
+                strokeDashoffset: this.strokeCircum,
+                ease: Power3.easeOut
+            })
+
+            // Update board Y position
+            TweenMax.to(this.$el.board, 0.7, {
+                y: 0,
+                ease: Power0.easenone
+            })
+
+            // Update title parts Y positions
+            this.$titleParts.forEach( 
+                (part, index) => {
+                    TweenMax.to(part, 0.5, {
+                        y: 0,
+                        ease: Power0.easenone
+                    })
+            });
+        }
+    }
 
     /**
      * Update Stroke circle fill according to value
@@ -201,7 +224,6 @@ class BoardScene {
         this.$el.strokeProgress.style.strokeDashoffset = dashoffset;
         this.$el.strokeProgress.style.strokeDasharray = this.strokeCircum;
     }
-
 
     /**
      * Update Title parts Y positions according to value
@@ -230,6 +252,7 @@ class BoardScene {
         })
         TweenMax.to(this.$el.shadow, 0.3, {
             z: - value * 15,
+            scale: 1 - (value / 100),
             ease: Power0.easenone
         })
     }
@@ -242,15 +265,12 @@ class BoardScene {
     titlePartsLeave(value) {
         this.$titleParts.forEach( 
             (part, index) => {
-                console.log('part : ' + part, 'index : ' + value * index)
-
                 TweenMax.to(part, 0.5, {
                     y: - ((value * (10 / ((index * 0.1) + 1)))),
                     ease: Power0.easenone
                 })
         });
     }
-
 
     /**
      * Update controls positions listenning resize event
