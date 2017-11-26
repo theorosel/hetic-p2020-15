@@ -42,7 +42,6 @@ TweenMax.set($description.$words, {
     y: 100
 })
 
-console.log($headline.$words)
 intersectionObserver($section, () => {
     console.log('yo')
     timeline
