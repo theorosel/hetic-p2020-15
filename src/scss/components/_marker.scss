@@ -1,0 +1,127 @@
+.marker {
+    display: none;
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    z-index: $zindex-5;
+
+    @include responsive($medium) {
+        display: block;
+	}
+}
+
+.marker.active {
+    .marker__progress {
+        stroke: $blue;
+        stroke-dasharray: 340;
+        stroke-dashoffset: 150;
+        transition: all 0.2 ease-in-out;
+    }
+
+    .marker__content {
+        opacity: 1;
+        transition: all 0.7 ease-in-out;
+    }
+}
+
+.marker__inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.marker__1 {
+    bottom: 220px;
+    left: 30vw;
+
+    @include responsive($large) {
+        left: 8vw;
+        bottom: 220px;
+	}
+}
+
+.marker__2 {
+    bottom: 120px;
+    left: 60vw;
+
+    @include responsive($large) {
+        left: 40vw;
+        bottom: 120px;
+	}
+}
+
+.marker__zone {
+    width: 100%;
+    height: 100%;
+}
+
+.marker__circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.marker__svg {
+    width: 71px;
+    height: 71px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.marker__stroke,
+.marker__progress {
+    fill: none;
+    user-select: none;
+}
+
+.marker__stroke {
+    stroke: $black;
+    stroke-dasharray: 340;
+    stroke-dashoffset: 340;
+}
+
+.marker__progress {
+    stroke: $blue;
+    stroke-dasharray: 340;
+    stroke-dashoffset: 340;
+    transition: $cubicB-1;
+}
+
+.marker__content {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    opacity: 1;
+    transition: all 0.7 ease-in-out;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.marker__title {
+    .text-word {
+        font-size: 2.125em;
+        margin-right: 0.4em;
+        opacity: 0;
+    }
+
+    margin-bottom: 1em;
+}
+
+.marker__description {
+    .text-word {
+        font-size: 0.9em;
+        margin-right: 0.4em;
+        margin-bottom: 0px;
+        opacity: 0;
+    }
+}

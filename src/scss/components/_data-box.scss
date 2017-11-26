@@ -1,41 +1,107 @@
 .data-box {
-    position: relative;
-    width: calc(100vw / 3);
-    height: calc((100vw / 3) / 3 * 2);
+    width: 100%;
+    height: calc(100vh / 3);
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: black;
     padding-left: 6vw;
     color: white;
+    transform: scaleX(0);
+    z-index: $zindex-2;
 
     &:nth-child(1),
     &:nth-child(2) {
         &:after {
             content: "";
             position: absolute;
-            right: 0;
-            width: 1px;
-            height: 100%;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
             background-color: white;
             opacity: 0.5;
         }
     }
+
+    @include responsive($small) {
+        width: 50%;
+        height: calc((100vh / 2) / 3 * 2);
+
+        &:nth-child(1),
+        &:nth-child(2) {
+            &:after {
+                content: "";
+                position: absolute;
+                right: 0;
+                width: 1px;
+                height: 100%;
+                background-color: white;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    @include responsive($medium) {
+        position: absolute;
+        width: calc(100vw / 3);
+        height: calc((100vw / 3) / 3 * 2);
+
+        &:nth-child(1),
+        &:nth-child(2) {
+            &:after {
+                content: "";
+                position: absolute;
+                right: 0;
+                width: 1px;
+                height: 100%;
+                background-color: white;
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+.data-box:nth-child(1) {
+    left: 0;
+}
+
+.data-box:nth-child(3) {
+    left: calc(100vw / 3 * 2);
+}
+
+.data-box__content {
+    opacity: 1;
 }
 
 .data-box__title,
-.data-box__title__unity {
+.data-box__unity {
     font-family: $headline;
+
+    .text-word {
+        height: auto;
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+
+    .text-word--blue {
+        display: inline-block;
+        font-weight: 600;
+    }
 }
 
 .data-box__title {
+    position: relative;
     display: inline-block;
     font-size: 3.125em;
     font-weight: bold;
     margin-bottom: 30px;
+
+    .text-word {
+        height: 0.89em;
+    }
 }
 
-.data-box__title__unity {
+.data-box__unity {
     color: $blue;
     font-size: 1.375em;
     margin-left: 10px;
@@ -46,4 +112,15 @@
     font-size: 1.375em;
     line-height: 1.5;
     max-width: 90%;
+
+    .text-word {
+        height: auto;
+        margin-right: 0.5em;
+        margin-bottom: 0;
+    }
+
+    .text-word--blue {
+        display: inline-block;
+        font-weight: 600;
+    }
 }

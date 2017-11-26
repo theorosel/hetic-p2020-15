@@ -1,0 +1,18 @@
+.text-word {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 0.8rem;
+    margin-bottom: 12px;
+}
+
+.text-word__inner {
+    display: inline-block;
+    width: 100%;
+}
+
+.text-word--blue {
+    display: block;
+    color: $blue;
+    font-weight: 700;
+}

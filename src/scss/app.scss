@@ -11,13 +11,17 @@
 @import 'base/base';
 
 // Components
+@import 'components/loader';
 @import 'components/dragger';
 @import 'components/heroBoard';
-@import 'components/loader';
+@import 'components/title';
+@import 'components/line';
+@import 'components/marker';
 @import 'components/data-box';
 
 // Layouts
 @import 'layouts/hero';
 @import 'layouts/video-intro';
+@import 'layouts/magic-explained';
 @import 'layouts/board-data';
 @import 'layouts/technical';

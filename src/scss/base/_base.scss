@@ -10,7 +10,30 @@ body.lock {
     overflow: hidden;
 }
 
-
-h1 {
+h1,
+h2,
+h3 {
     font-family: $headline;
+    text-transform: uppercase;
+    letter-spacing: -0.1rem;
+}
+
+h2 {
+    font-size: 4em;
+    line-height: 0.7;
+
+    @include responsive($small) {
+        font-size: 5.4em;
+        line-height: 0.7;
+	}
+}
+
+p {
+    font-family: $body;
+    font-size: 1.2em;
+    line-height: 1.5;
+    
+    @include responsive($small) {
+        font-size: 1.375em;
+	}
 }

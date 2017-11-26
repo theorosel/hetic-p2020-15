@@ -2,10 +2,30 @@
     position: relative;
     width: 100vw;
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    background-color: white;
+    flex-direction: column;
+    background-color: transparent;
     z-index: $zindex-2;
-    padding-top: 25vh;
-    padding-bottom: 25vh;
+    padding-top: 30vh;
+    padding-bottom: 15vh;
+
+    @include responsive($small) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    @include responsive($large) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+.board-data__background {
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    z-index: $zindex;
+    overflow: hidden;
 }

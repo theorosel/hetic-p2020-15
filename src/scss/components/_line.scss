@@ -1,0 +1,29 @@
+.line {
+    position: absolute;
+    height: 100vh;
+    width: 1px;
+    background-color: white;
+    opacity: 0.4;
+}
+
+.line--black {
+    background-color: black;
+    opacity: 0.1;
+}
+
+.line__1 {
+    left: calc(100vw / 2);
+
+    @include responsive($medium) {
+        left: calc(100vw / 3);
+	}
+}
+
+.line__2 {
+    width: 0;
+
+    @include responsive($medium) {
+        width: 1px;
+        left: calc((100vw / 3) * 2);
+	}
+}

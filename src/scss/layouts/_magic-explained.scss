@@ -1,0 +1,147 @@
+.container {
+    padding-left: 30px;
+    padding-right: 30px;
+
+    @include responsive($small) {
+        padding-left: 90px;
+        padding-right: 90px;
+    }
+    
+    @include responsive($large) {
+        padding-left: 0px;
+        padding-right: 0px;
+	}
+}
+
+.container--right {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+
+    @include responsive($medium) {
+        justify-content: flex-end;
+	}
+}
+
+.magic-explained {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    z-index: $zindex-2;
+    
+    @include responsive($small) {
+        padding-bottom: 200px;
+	}
+}
+
+.magic-explained__line--1 {
+    z-index: $zindex-3;
+    display: none;
+}
+
+.magic-explained__line--2 {
+    z-index: $zindex-5;
+    display: block;
+}
+
+.magic-explained__content {
+    margin-top: 20vh;
+    margin-bottom: 10vh;
+    width: 100vw;
+    z-index: $zindex-4;
+
+    @include responsive($large) {
+        width: calc(100vw / 3 * 2);
+        margin-top: 30vh;
+        margin-bottom: 10vh;
+	}
+}
+
+.magic-explained__title {
+    margin-bottom: 40px;
+}
+
+.magic-explained__description {
+
+
+    .text-word {
+        margin-right: 0.4em;
+        margin-bottom: 0;
+        opacity: 0;
+    }
+
+    @include responsive($medium) {
+        display: inline-block;
+        max-width: 90%;
+    }
+    
+    @include responsive($large) {
+        display: inline-block;
+        max-width: 70%;
+	}
+}
+
+
+.magic-explained__visual {
+    position: relative;
+    width: 100vw;
+    height: calc(100vh /1.5);
+    margin-top: -400px;
+    overflow: hidden;
+    will-change: transform;
+
+    @include responsive($small) {
+        margin-top: -350px;
+    }
+    
+    @include responsive($medium) {
+        margin-top: -300px;
+    }
+
+    @include responsive($large) {
+        width: calc(100vw / 3 * 2);
+        height: calc(100vh /1.5);
+    }
+    
+    
+}
+
+.magic-explained__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+}
+
+.magic-explained__overlay--1 {
+    transform: scaleX(1);
+    transform-origin: left bottom;
+    will-change: transform;
+    z-index: $zindex-4;
+}
+
+.magic-explained__overlay--2 {
+    transform: scaleX(0);
+    transform-origin: right bottom;
+    will-change: transform;
+    z-index: $zindex-2
+}
+
+.magic-explained__image,
+.magic-explained__stroke {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+}
+
+.magic-explained__stroke {
+    opacity: 0;
+    z-index: $zindex-3
+}
