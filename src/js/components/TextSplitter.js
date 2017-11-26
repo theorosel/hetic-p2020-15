@@ -37,6 +37,7 @@ class TextSplitter {
 
                 if (this.options.inner) {
                     this.$words.push($wordInner)
+                    this.$words.push($word)
                 } else {
                     this.$words.push($word)
                 }
@@ -48,7 +49,7 @@ class TextSplitter {
                 }
 
                 $word.appendChild($wordInner)
-                this.$words.push($word)
+                // this.$words.push($word)
                 this.$el.container.appendChild($word)
             }
         )

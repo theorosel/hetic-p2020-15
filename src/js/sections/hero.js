@@ -31,7 +31,7 @@ preloader.on('complete', () => {
 
             const $headlineParts = new TextSplitter(
                 document.querySelector('.headline'), {
-                    inner: true,
+                    inner: false,
                     lastWordBlue: true
                 }
             )
@@ -39,6 +39,7 @@ preloader.on('complete', () => {
 
             const boardScene = new BoardScene(document.querySelector('.hero'))
             const timeline = new TimelineMax()
+            console.log($headlineParts.$words)
 
             const introComplete = () => {
                 $headlineRoll.play()
