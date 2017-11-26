@@ -1,7 +1,7 @@
 import './components/LazyLoading'
-import './hero'
-import './video-intro'
-import './board-data'
+import './sections/hero'
+import './sections/video-intro'
+import './sections/board-data'
 // import './technical'
 
 window.onbeforeunload = function() {

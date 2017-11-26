@@ -1,6 +1,6 @@
 import { TweenMax, Power0 } from 'gsap'
-import { enterInView, completelyInView } from './utils/view.js'
-import { getScrollPercent } from './utils/scroll.js'
+import { enterInView, completelyInView } from './../utils/view.js'
+import { getScrollPercent } from './../utils/scroll.js'
 
 const $section = document.querySelector('.video-intro')
 const $video = document.querySelector('.video-intro__video')
@@ -50,6 +50,7 @@ function updateMaskBottom(value) {
         }
     )
 }
+
 
 window.addEventListener('scroll', () => {
     if (enterInView($section)) {
