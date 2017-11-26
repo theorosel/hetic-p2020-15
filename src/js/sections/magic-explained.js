@@ -2,7 +2,7 @@ import { TweenMax, TimelineMax, Power2, Power3 } from 'gsap'
 import { enterInView, halfInView } from './../utils/view.js'
 import { intersectionObserver } from './../utils/intersectionObserver.js'
 import TextSplitter from './../components/TextSplitter.js'
-import Marker from './../components/Marker.js'
+// import Marker from './../components/Marker.js'
 
 const $section = document.querySelector('.magic-explained')
 const $sectionVisual = document.querySelector('.magic-explained__visual')
