@@ -1,21 +1,36 @@
+// Responsive
 @mixin responsive($breakPoint) {
     @if $breakPoint == $xlarge {
-      @media (min-width: $xlarge) { @content ; }
+        @media (min-width: $xlarge) { @content ; }
     }
-  
+
     @else if $breakPoint == $large {
-      @media (min-width: $large) { @content ; }
+        @media (min-width: $large) { @content ; }
     }
-  
+
     @else if $breakPoint == $medium {
-      @media (min-width: $medium) { @content ; }
+        @media (min-width: $medium) { @content ; }
     }
-  
+
     @else if $breakPoint == $small {
-      @media (min-width: $small)  { @content ; }
+        @media (min-width: $small)  { @content ; }
     }
-  
+
     @else if $breakPoint == $xsmall {
-      @media (min-width: $xsmall)  { @content ; }
+        @media (min-width: $xsmall)  { @content ; }
     }
-  }
+}
+
+// Fonts
+@mixin font-face($font-family, $file-path, $font-weight, $font-style) {
+    @font-face {
+        font-family: $font-family;
+        font-weight: $font-weight;
+        font-style: $font-style;
+
+        src: url('../../fonts/#{$file-path}.eot');
+        src: url('../../fonts/#{$file-path}.eot?#iefix') format('embedded-opentype'),
+        url('../../fonts/#{$file-path}.ttf') format('truetype'),
+        url('../../fonts/#{$file-path}.woff') format('woff'),
+    }
+}
