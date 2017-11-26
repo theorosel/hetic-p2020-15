@@ -1,13 +1,27 @@
+/** Class which split a string and return array of words. */
 class TextSplitter {
-    constructor(el) {
+    /**
+     * Create a Board Scene.
+     * @param {DOM} el - the Dom element
+     * @param {object} options
+     *      - @param {boolean} innner : true if we want word in a parent clip
+     *      - @param {boolean} lastWordBlue : true if we want the last word blue
+     */
+    constructor(el, options) {
         this.$el           = {}
         this.$el.container = el
+        this.options       = options
         this.string        = this.$el.container.innerText
         this.$words        = []
 
         this.initParts()
     }
 
+    /**
+     * Get the board off the screen on z axis according to
+     * @method initParts()
+     * call in init()
+     */
     initParts() {
         const words = this.string.split(' ')
         this.$el.container.innerText = ''
@@ -21,8 +35,16 @@ class TextSplitter {
                 $wordInner.classList.add('text-word__inner')
                 $wordInner.innerText = word
 
+                if (this.options.inner) {
+                    this.$words.push($wordInner)
+                } else {
+                    this.$words.push($word)
+                }
+
                 if (index === words.length - 1) {
-                    $word.classList.add('text-word--blue')
+                    if(this.options.lastWordBlue) {
+                        $word.classList.add('text-word--blue')
+                    }
                 }
 
                 $word.appendChild($wordInner)

@@ -29,7 +29,12 @@ preloader.on('complete', () => {
             const $dragLine = document.querySelector('.control__line')
             const $dragCircle = document.querySelector('.progress__meter')
 
-            const $headlineParts = new TextSplitter(document.querySelector('.headline'))
+            const $headlineParts = new TextSplitter(
+                document.querySelector('.headline'), {
+                    inner: true,
+                    lastWordBlue: true
+                }
+            )
             const $headlineRoll  = new TextSlider($headlineParts.$words[$headlineParts.$words.length - 1])
 
             const boardScene = new BoardScene(document.querySelector('.hero'))
