@@ -47,7 +47,7 @@ function updateBoxesPosition(value) {
 function updateBkg(value) {
     TweenMax.to($background, 0.4, {
         opacity: (value / 100) - 0.1,
-        y: - value * 2 + 'px',
+        y: `-${value * 2}px`,
         ease: Power0.easeNone
     })
     TweenMax.to($backgroundImage, (0.4), {
