@@ -1,26 +1,31 @@
-// import getScrollPercent from '/utils/scroll.js'
+import { TweenMax, Linear } from 'gsap'
+import { enterInView, completelyInView } from './../utils/view.js'
+import { getScrollPercent } from './../utils/scroll.js'
 
 /*
  *
     Circle dots creation
  *
  */
-class fullCircle {
-    constructor(number, wrap, identity) {
+
+class fullCircle{
+    constructor(number, wrap, identity){
       this.number   = number,
       this.wrap     = wrap,
       this.identity = identity
     }
-    createPoints() {
+
+    createPoints(){
       this.container = document.querySelector('.' + this.wrap)
-      for(let i = 0; i < this.number; i++) {
+      for(let i = 0; i < this.number; i++){
         let newDot = document.createElement("div")
         newDot.className = this.identity
         this.container.appendChild(newDot)
       }
     }
-    placePoints() {
-      const radius  = window.innerHeight / 5
+
+    placePoints(){
+      const radius  = window.innerWidth / 4.5
       let dots      = document.querySelectorAll('.' + this.identity),
       container     = this.container,
       width         = container.offsetWidth,
@@ -38,89 +43,23 @@ class fullCircle {
     }
 }
 
-let smallDots = new fullCircle(80, 'technical__circle', 'dot__small')
-smallDots.createPoints()
-smallDots.placePoints()
+if (window.matchMedia("(min-width: 600px)").matches) {
 
-let bigDots = new fullCircle(4, 'technical__circle', 'dot__big')
-bigDots.createPoints()
-bigDots.placePoints()
+    // create the circle only on desktop
+    let smallDots = new fullCircle(80, 'technical__circle', 'dot__small')
+    smallDots.createPoints()
+    smallDots.placePoints()
+
+    let bigDots = new fullCircle(4, 'technical__circle', 'dot__big')
+    bigDots.createPoints()
+    bigDots.placePoints()
+}
 
 /*
  *
     Required functions and variables
  *
  */
-// const addEvent = (element, eventType, handler) => {
-//   if (element.addEventListener){
-//     element.addEventListener(eventType, handler, false)
-//   }
-//   else if (element.attachEvent){
-//     element.attachEvent('on' + eventType, handler)
-//   }
-//   else{
-//     element['on' + eventType] = handler
-//   }
-// }
-
-const getScrollPercent = layer => {
-    let layerTop         = layer.getBoundingClientRect().top,
-        windowHeight     = window.innerHeight,
-        percentageHeight = Math.floor((windowHeight - layerTop - windowHeight) / layer.offsetHeight * 100)
-
-        // console.log(percentageHeight + '%')
-    return percentageHeight;
-}
-
-const displayStepContent = (element, className, step) => {
-    for(let i = 0; i < element.length; i++) {
-        element[i].classList.remove(className)
-    }
-    element[step].classList.add(className)
-}
-
-const moveSkate = () => {
-    let scrollPercent   = getScrollPercent(skateSection),
-        skateTop        = wholeSkate.style.top,
-        skateLeft       = wholeSkate.style.left,
-        skateTopPart    = skateImages[0].style.bottom,
-        skateBottomPart = skateImages[2].style.top
-
-    wholeSkate.style.position = 'fixed'
-
-    if(scrollPercent < 40) {
-        skateTop = scrollPercent
-        skateLeft = scrollPercent
-
-        wholeSkate.style.left = skateLeft + '%'
-        wholeSkate.style.top = skateTop + '%'
-        wholeSkate.style.opacity = scrollPercent * 2.5 / 100
-    }
-    else if(scrollPercent > 80 && scrollPercent < 120) {
-        skateImages[0].style.position = 'fixed'
-        skateImages[2].style.position = 'fixed'
-
-        skateTopPart    = scrollPercent / 2
-        skateBottomPart = scrollPercent / 2
-
-        skateImages[0].style.bottom = skateTopPart + '%'
-        skateImages[2].style.top = skateBottomPart + '%'
-    }
-}
-
-const fillCircle = () => {
-    let scrollPercent = getScrollPercent(techSection)
-    if(scrollPercent < allSteps.length+1) {
-        for(let i = 0; i < allSteps.length; i++) {
-            if(i < scrollPercent) {
-                allSteps[i].classList.add('active-dot')
-            }
-            else{
-                allSteps[i].classList.remove('active-dot')
-            }
-        }
-    }
-}
 
 let allSteps  = [],
     mainDots  = []
@@ -130,106 +69,209 @@ let allSteps  = [],
     mainDots  = [...mainDots]
 
 let techSection  = document.querySelector('.technical'),
+    techTitle    = document.querySelector('.technical__steps h2'),
     techCircle   = document.querySelector('.technical__circle'),
     skateSection = document.querySelector('.skate__container'),
     wholeSkate   = document.querySelector('.skate__images'),
     skateImages  = document.querySelectorAll('.skate__images img'),
-    steps        = document.querySelectorAll('.step'),
-    state        = true
+    steps        = document.querySelectorAll('.step')
 
-/*
- *
-    Scroll animation, filling the circle
- *
+/**
+ * Returns the percentage of the section that is scrolled
+ * @function getScroll
+ * @param layer
  */
-const handleTechScroll = () => {
-    let techSectionPos  = techSection.getBoundingClientRect(),
-        top             = techSectionPos.top,
-        bottom          = techSectionPos.bottom,
-        skateSectionPos = skateSection.getBoundingClientRect(),
-        skateTop        = skateSectionPos.top
+const getScroll  = layer => {
+    let layerTop         = layer.getBoundingClientRect().top,
+        windowHeight     = window.innerHeight,
+        percentageHeight = Math.floor((windowHeight - layerTop - windowHeight) / layer.offsetHeight * 100)
 
-    if(skateTop <= 0) {
-        moveSkate()
-    }
+    return percentageHeight;
+}
 
-    if(top <= 0) {
-        let scrollPercent = getScrollPercent(techSection)
-        techCircle.style.position = 'fixed'
-
-        // skate and circle structure appear
-        if(scrollPercent < 100) {
-            // circle appears
-            for(let i = 0; i < allSteps.length; i++) {
-                allSteps[i].classList.add('visible')
-            }
-            for(let i = 0; i < mainDots.length; i++) {
-                mainDots[i].classList.add('visible')
-            }
-
-            // filling circle
-            if(scrollPercent < allSteps.length+1) {
-                // small dots progression
-                fillCircle()
-                // steps
-                if(scrollPercent <= 20) {
-                    displayStepContent(mainDots, 'active-step', 0)
-                    steps[0].classList.remove('visible')
-                    console.log('first dot')
-                }
-                else if(scrollPercent > 20 && scrollPercent <= 40) {
-                    displayStepContent(mainDots, 'active-step', 1)
-                    displayStepContent(steps, 'visible', 0)
-                    displayStepContent(skateImages, 'visible', 0)
-                    console.log('second dot')
-                }
-                else if(scrollPercent > 40 && scrollPercent <= 60) {
-                    displayStepContent(mainDots, 'active-step', 2)
-                    displayStepContent(steps, 'visible', 1)
-                    displayStepContent(skateImages, 'visible', 1)
-                    console.log('third dot')
-                }
-                else if(scrollPercent > 60 && scrollPercent < allSteps.length+1) {
-                    displayStepContent(mainDots, 'active-step', 3)
-                    displayStepContent(steps, 'visible', 2)
-                    displayStepContent(skateImages, 'visible', 2)
-                    console.log('fourth dot')
-                }
-            }
-            else{
-                console.log('scroll 80+')
-                steps[2].classList.remove('visible')
-                wholeSkate.style.opacity = 0
-                // circle disappears
-                for(let i = 0; i < allSteps.length; i++) {
-                    allSteps[i].classList.remove('visible')
-                }
-                for(let i = 0; i < mainDots.length; i++) {
-                    mainDots[i].classList.remove('visible')
-                }
-            }
+const displayCircle = () => {
+    for(let i = 0; i < allSteps.length; i++){
+            allSteps[i].classList.add('visible')
         }
-        else{
-            console.log('autres sections')
-        }
+        for(let i = 0; i < mainDots.length; i++){
+            mainDots[i].classList.add('visible')
     }
-    else{
-        console.log('dernier else')
-        // circle disappears
-        for(let i = 0; i < allSteps.length; i++) {
+}
+
+const removeCircle = () => {
+    for(let i = 0; i < allSteps.length; i++){
             allSteps[i].classList.remove('visible')
         }
-        for(let i = 0; i < mainDots.length; i++) {
+        for(let i = 0; i < mainDots.length; i++){
             mainDots[i].classList.remove('visible')
+    }
+}
+
+/**
+ * Display the right content and remove the previous ones
+ * @function displayStepContent
+ * @param element, className and {float} step
+ */
+const displayStepContent = (element, className, step) => {
+    for(let i = 0; i < element.length; i++){
+        element[i].classList.remove(className)
+    }
+    element[step].classList.add(className)
+}
+
+/**
+ * Display the right image and blur the previous ones
+ * @function switchSkatePart
+ * @param element, className and {float} step
+ */
+const switchSkatePart = (element, className, step) => {
+    for(let i = 0; i < element.length; i++){
+        element[i].classList.remove(className)
+        element[i].style.opacity = 0.3
+    }
+    element[step].classList.add(className)
+}
+
+// move the skate according to scroll
+const moveSkate = () => {
+    let skatePercent    = getScroll(skateSection),
+        skateTop        = wholeSkate.style.top,
+        skateLeft       = wholeSkate.style.left,
+        skateTopPart    = skateImages[0].style.bottom,
+        skateBottomPart = skateImages[2].style.top
+
+    wholeSkate.style.position = 'fixed'
+
+    if(skatePercent < 40){
+        skateTop = skatePercent
+        skateLeft = skatePercent
+
+        wholeSkate.style.left = skateLeft + '%'
+        wholeSkate.style.top = skateTop + '%'
+        wholeSkate.style.opacity = skatePercent * 2.5 / 100
+
+        skateImages[0].classList.remove('explode-skate-1')
+        skateImages[2].classList.remove('explode-skate-2')
+    }
+    else{
+        skateImages[0].style.position = 'fixed'
+        skateImages[2].style.position = 'fixed'
+
+        skateImages[0].classList.add('explode-skate-1')
+        skateImages[2].classList.add('explode-skate-2')
+    }
+}
+
+const smallDotsProgression = () => {
+    let techPercent = getScroll(techSection)
+    if(techPercent < allSteps.length+1){
+        for(let i = 0; i < allSteps.length; i++){
+            if(i < techPercent){
+                allSteps[i].classList.add('active-dot')
+            }
+            else{
+                allSteps[i].classList.remove('active-dot')
+            }
         }
     }
 }
 
-window.addEventListener('scroll', () => {
-    handleTechScroll()
-})
-// addEvent(window, 'scroll', handleTechScroll)
-// addEvent(window, 'mousewheel', handleTechScroll)
-// addEvent(window, 'DOMMouseScroll', handleTechScroll)
-// addEvent(window, 'wheel', handleTechScroll)
-// addEvent(window, 'MozMousePixelScroll', handleTechScroll)
+const handleCircleFilling = () => {
+    let techPercent  = getScroll(techSection)
+
+    techCircle.style.position = 'fixed'
+    displayCircle()
+    techTitle.classList.add('visible')
+
+    // filling circle
+    if(techPercent < allSteps.length+1){
+        // fill small dots
+        smallDotsProgression()
+
+        if(techPercent <= 20){
+            displayStepContent(mainDots, 'active-step', 0)
+            steps[0].classList.remove('visible')
+
+            for (let i = 0; i < skateImages.length; i++) {
+                skateImages[i].style.opacity = 1
+            }
+        }
+
+        // first processus
+        else if(techPercent > 20 && techPercent <= 40){
+            displayStepContent(mainDots, 'active-step', 1)
+            displayStepContent(steps, 'visible', 0)
+            switchSkatePart(skateImages, 'visible', 0)
+        }
+
+        // second processus
+        else if(techPercent > 40 && techPercent <= 60){
+            displayStepContent(mainDots, 'active-step', 2)
+            displayStepContent(steps, 'visible', 1)
+            switchSkatePart(skateImages, 'visible', 1)
+        }
+
+        // third processus
+        else if(techPercent > 60 && techPercent < 65){
+            displayStepContent(mainDots, 'active-step', 3)
+            displayStepContent(steps, 'visible', 2)
+            switchSkatePart(skateImages, 'visible', 2)
+        }
+
+        // folded skate
+        else if (techPercent > 65 && techPercent < allSteps.length+1){
+            steps[2].classList.remove('visible')
+
+            for (let i = 0; i < skateImages.length; i++) {
+                    skateImages[i].style.opacity = 1
+            }
+
+            skateImages[0].classList.remove('explode-skate-1')
+            skateImages[2].classList.remove('explode-skate-2')
+            wholeSkate.style.opacity = 1
+        }
+    }
+
+    else{
+        // circle, skate and title disappear
+        removeCircle()
+        techTitle.classList.remove('visible')
+        wholeSkate.style.opacity = 0
+    }
+}
+
+/*
+ *
+    Scroll animation, filling the circle with different steps
+ *
+ */
+
+const handleTechScroll  = () => {
+
+    // moving the skate at the right moment
+    if(enterInView(skateSection)){
+        moveSkate()
+    }
+    // hide it in other sections
+    else{
+        wholeSkate.style.opacity = 0
+    }
+
+    // deploy the circle as the section appears on the viewport
+    if(enterInView(techSection)) {
+
+        if (window.matchMedia("(min-width: 600px)").matches) {
+            handleCircleFilling()
+        }
+        else{
+            // mobile
+        }
+    }
+    // remove it on other sections
+    else{
+        removeCircle()
+        techTitle.classList.remove('visible')
+    }
+}
+
+window.addEventListener("scroll", handleTechScroll, false)

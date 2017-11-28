@@ -4,7 +4,7 @@ import './sections/video-intro'
 import './sections/magic-explained'
 import './sections/board-data'
 import './sections/clean-design'
-// import './technical'
+import './sections/technical'
 
 window.addEventListener('beforeunload', () => {
     window.scrollTo(0,0);
