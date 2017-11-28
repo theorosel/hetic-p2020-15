@@ -1,0 +1,56 @@
+.gallery {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    z-index: $zindex-2;
+    cursor: grab;
+
+    &:active {
+        cursor: grabbing;
+    }
+}
+
+.gallery__inner {
+    height: 100%;
+    width: 3000px;
+    display: flex;
+    flex-direction: row;
+    margin-left: calc(100vw / 3 / 2);
+    overflow: hidden;
+}
+
+.gallery__item {
+    position: relative;
+    margin-right: 25px;
+    height: 100%;
+    width: 100%;
+    user-select: none;
+    touch-action: none;
+    pointer-events: none;
+}
+
+.gallery-item__inner,
+.gallery-item__overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.gallery-item__overlay {
+    height: 100%;
+    background-color: white;
+    z-index: $zindex-2;
+    transform: scaleX(1);
+    transform-origin: left;
+    will-change: transform;
+}
+
+.gallery__image {
+    width: 100%;
+    transform: scale(1.25);
+    z-index: $zindex;
+}

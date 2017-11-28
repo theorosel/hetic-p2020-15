@@ -1,0 +1,40 @@
+.clean-design {
+    position: relative;
+    // padding-top: 150px;
+    // padding-bottom: 150px;
+}
+
+.clean-design__content {
+    width: 100vw;
+    z-index: $zindex-4;
+
+    @include responsive($large) {
+        width: calc(100vw / 3 * 2);
+        margin-bottom: 10vh;
+	}
+}
+
+.clean-design__gallery {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 150px;
+    padding-bottom: 150px;
+}
+
+.clean-design__part {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: calc(100vw / 2);
+    background-color: black;
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: left;
+    will-change: transform;
+
+    @include responsive($medium) {
+        width: calc(100vw / 3);
+	}
+}

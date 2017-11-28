@@ -50,10 +50,10 @@ function updateBkg(value) {
         y: `-${value * 2}px`,
         ease: Power0.easeNone
     })
-    TweenMax.to($backgroundImage, (0.4), {
-        scale: 1 + value / 100,
-        ease: Power0.easeNone
-    })
+    // TweenMax.to($backgroundImage, (0.4), {
+    //     scale: 1 + value / 100,
+    //     ease: Power0.easeNone
+    // })
 }
 
 if (window.matchMedia("(min-width: 900px)").matches) {
