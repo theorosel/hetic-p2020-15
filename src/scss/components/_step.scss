@@ -1,7 +1,16 @@
 .step__title{
-    text-align: center;
+    width: 15rem;
+    text-align: left;
     @include responsive($medium) {
         text-align: right;
+    }
+    @include responsive($large) {
+        width: 20rem;
+        margin-left:-5rem;
+    }
+    @include responsive($xlarge) {
+        width: 20rem;
+        margin-left:0;
     }
     h3{
         text-transform: uppercase;

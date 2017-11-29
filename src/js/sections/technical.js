@@ -1,6 +1,8 @@
 import { TweenMax, Linear, Power0, TimelineMax } from 'gsap'
 import { enterInView, completelyInView } from './../utils/view.js'
 import { getScrollPercent } from './../utils/scroll.js'
+import TextSplitter from './../components/TextSplitter.js'
+import { intersectionObserver } from './../utils/intersectionObserver.js'
 
 /*
  *
@@ -77,6 +79,17 @@ let techSection  = document.querySelector('.technical'),
     skateImages  = document.querySelectorAll('.skate__images img'),
     steps        = document.querySelectorAll('.technical__step')
 
+let $headline = new TextSplitter(
+    techTitle, {
+        inner: true,
+        lastWordBlue: true
+    }
+)
+
+TweenMax.set($headline.$words, {
+    y: 100
+})
+
 /**
  * Returns the percentage of the section that is scrolled
  * @function getScroll
@@ -141,7 +154,7 @@ const moveSkate = () => {
         skateTopPart    = skateImages[0].style.bottom,
         skateBottomPart = skateImages[2].style.top,
         gcbdLeft        = wholeSkate.getBoundingClientRect().left - (wholeSkate.offsetWidth / 2)
-        
+
     wholeSkate.style.position = 'fixed'
 
     if(skatePercent < 37){
@@ -155,10 +168,6 @@ const moveSkate = () => {
             ease: Power2.easeNone
         })
 
-        // wholeSkate.style.left = skateLeft + '%'
-        // wholeSkate.style.top = skateTop + '%'
-        // wholeSkate.style.opacity = skatePercent * 2.5 / 100
-
         skateImages[0].classList.remove('explode-skate-1')
         skateImages[2].classList.remove('explode-skate-2')
     }
@@ -167,7 +176,7 @@ const moveSkate = () => {
 
             skateImages[0].style.position = 'fixed'
             skateImages[2].style.position = 'fixed'
-    
+
             skateImages[0].classList.add('explode-skate-1')
             skateImages[2].classList.add('explode-skate-2')
         }, 800);
@@ -195,7 +204,11 @@ const handleCircleFilling = () => {
     techSteps.style.position = 'fixed'
     techCircle.style.position = 'fixed'
     displayCircle()
-    techTitle.classList.add('visible')
+    // title
+    TweenMax.staggerTo($headline.$words, 1.2, {
+            y: 0,
+            ease: Power3.easeOut
+    }, 0.03)
 
     // filling circle
     if(techPercent < allSteps.length+1){
@@ -249,7 +262,6 @@ const handleCircleFilling = () => {
     else{
         // circle, skate and title disappear
         removeCircle()
-        techTitle.classList.remove('visible')
         wholeSkate.style.opacity = 0
     }
 }
@@ -296,7 +308,7 @@ const updateSkateY = () => {
                 ease: Linear.easeOut
             },
             {
-                top: -techPercent * 4,
+                top: (-techPercent * 3) - 150,
                 ease: Linear.easeOut
             }
         )
@@ -316,7 +328,7 @@ const updateSkateY = () => {
                 ease: Linear.easeOut
             },
             {
-                top: -techPercent * 2.5,
+                top: (-techPercent * 2.6) - 180,
                 ease: Linear.easeOut
             }
         )
@@ -354,7 +366,6 @@ const handleTechScroll  = () => {
     else{
         techSteps.style.position = 'relative'
         removeCircle()
-        techTitle.classList.remove('visible')
     }
 }
 
