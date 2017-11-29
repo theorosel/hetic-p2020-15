@@ -3,9 +3,8 @@
     margin-top: 15vh;
     z-index: $zindex-2;
 
-    @include responsive($large) {
-        margin-top: 25vh;
-        margin-bottom: 10vh;
+    @include responsive($medium) {
+        margin-top: 50vh;
 	}
 }
 
@@ -17,7 +16,7 @@
     @include responsive($large) {
         position: absolute;
         width: calc(100vw / 3 * 2);
-        margin-top: 10vh;
+        margin-top: 40vh;
         margin-bottom: 10vh;
 	}
 }
