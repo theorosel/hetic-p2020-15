@@ -1,0 +1,112 @@
+.park {
+    position: relative;
+    margin-top: 15vh;
+    z-index: $zindex-2;
+
+    @include responsive($large) {
+        margin-top: 25vh;
+        margin-bottom: 10vh;
+	}
+}
+
+.park__content {
+    width: 100vw;
+    margin-top: 10vh;
+    z-index: $zindex-3;
+
+    @include responsive($large) {
+        position: absolute;
+        width: calc(100vw / 3 * 2);
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+	}
+}
+
+.park__title {
+    margin-bottom: 40px;
+    z-index: $zindex-2;
+}
+
+.park__description {
+    
+    .text-word {
+        margin-right: 0.3em;
+        margin-bottom: 0;
+        opacity: 0;
+    }
+    
+    @include responsive($medium) {
+        display: inline-block;
+        max-width: 90%;
+    }
+    
+    @include responsive($large) {
+        display: inline-block;
+        max-width: 55%;
+    }
+}
+
+.park__scene {
+    width: 100vw;
+    height: 30vh;
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 20vh;
+        background-image: linear-gradient(180deg, rgba(255,255,255,0.00) 0%, #FFFFFF 100%);
+    }
+
+    @include responsive($small) {
+        height: 120vh;
+    }
+}
+
+.park__inner {
+    perspective: 800px;
+    position: relative;
+    width: 100vw;
+    height: 30vh;
+    transform: scale(1);
+    will-change: transform;
+
+    @include responsive($small) {
+        height: 120vh;
+    }
+}
+
+.park__main {
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.park__bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: inline-block;
+    width: 100%;
+}
+
+.park__tree {
+    display: none;
+    position: absolute;
+    top: 25%;
+    right: -20px;
+    display: inline-block;
+    width: 120%;
+    z-index: $zindex-4;
+
+    @include responsive($medium) {
+        display: block;
+	}
+}
