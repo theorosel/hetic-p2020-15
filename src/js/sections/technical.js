@@ -72,10 +72,10 @@ let techSection  = document.querySelector('.technical'),
     techSteps    = document.querySelector('.technical__steps'),
     techTitle    = document.querySelector('.technical__steps h2'),
     techCircle   = document.querySelector('.technical__circle'),
-    skateSection = document.querySelector('.skate__container'),
+    skateSection = document.querySelector('.skate'),
     wholeSkate   = document.querySelector('.skate__images'),
     skateImages  = document.querySelectorAll('.skate__images img'),
-    steps        = document.querySelectorAll('.step')
+    steps        = document.querySelectorAll('.technical__step')
 
 /**
  * Returns the percentage of the section that is scrolled

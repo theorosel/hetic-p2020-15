@@ -1,0 +1,47 @@
+.dot__small{
+    position: absolute;
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 100%;
+    background-color:grey;
+    transform-origin: 0% 50%;
+    opacity: 0;
+    transition : all ease 0.3s;
+    @for $i from 1 through 80 {
+        &:nth-child(#{$i}) {
+            transition-delay: 0.02s*$i;
+        }
+    }
+}
+
+.dot__big{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color:$black;
+    transition : all ease 0.3s;
+    cursor:pointer;
+    opacity: 0;
+    @for $j from 1 through 4 {
+        &:nth-child(#{$j}) {
+            transition-delay: 0.3s*$j;
+        }
+    }
+}
+
+// animations
+.active-dot{
+    animation: 0.2s ease-out forwards 1 activeDot;
+}
+
+@keyframes activeDot{
+    50%{
+        transform: scale(1.25);
+        background-color:$blue;
+    }
+    100%{
+        transform: scale(1);
+        background-color:$blue;
+    }
+}
