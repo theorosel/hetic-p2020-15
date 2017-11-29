@@ -1,4 +1,4 @@
-import { TweenMax, Linear } from 'gsap'
+import { TweenMax, Linear, Power0, TimelineMax } from 'gsap'
 import { enterInView, completelyInView } from './../utils/view.js'
 import { getScrollPercent } from './../utils/scroll.js'
 
@@ -42,7 +42,7 @@ class fullCircle{
       })
     }
 }
-
+`$`
 if (window.matchMedia("(min-width: 600px)").matches) {
 
     // create the circle only on desktop
@@ -139,27 +139,38 @@ const moveSkate = () => {
         skateTop        = wholeSkate.style.top,
         skateLeft       = wholeSkate.style.left,
         skateTopPart    = skateImages[0].style.bottom,
-        skateBottomPart = skateImages[2].style.top
-
+        skateBottomPart = skateImages[2].style.top,
+        gcbdLeft        = wholeSkate.getBoundingClientRect().left - (wholeSkate.offsetWidth / 2)
+        
     wholeSkate.style.position = 'fixed'
 
     if(skatePercent < 37){
         skateTop = skatePercent
         skateLeft = skatePercent
 
-        wholeSkate.style.left = skateLeft + '%'
-        wholeSkate.style.top = skateTop + '%'
-        wholeSkate.style.opacity = skatePercent * 2.5 / 100
+        TweenMax.to(wholeSkate, 0.7, {
+            opacity: skatePercent * 2.5 / 100,
+            left: `${skateLeft}%`,
+            top: `${skateTop}%`,
+            ease: Power2.easeNone
+        })
+
+        // wholeSkate.style.left = skateLeft + '%'
+        // wholeSkate.style.top = skateTop + '%'
+        // wholeSkate.style.opacity = skatePercent * 2.5 / 100
 
         skateImages[0].classList.remove('explode-skate-1')
         skateImages[2].classList.remove('explode-skate-2')
     }
     else{
-        skateImages[0].style.position = 'fixed'
-        skateImages[2].style.position = 'fixed'
+        setTimeout(() => {
 
-        skateImages[0].classList.add('explode-skate-1')
-        skateImages[2].classList.add('explode-skate-2')
+            skateImages[0].style.position = 'fixed'
+            skateImages[2].style.position = 'fixed'
+    
+            skateImages[0].classList.add('explode-skate-1')
+            skateImages[2].classList.add('explode-skate-2')
+        }, 800);
     }
 }
 
