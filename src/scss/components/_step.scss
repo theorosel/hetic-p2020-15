@@ -11,16 +11,32 @@
         color: $blue;
         letter-spacing: -0.1rem;
         margin-bottom: 1rem;
+        @include responsive($xlarge) {
+            font-size: 2.7rem;
+        }
     }
     p{
         font-family: $body;
         color:grey;
+
+        @include responsive($xsmall) {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        @include responsive($xlarge) {
+            font-size: 1.5rem;
+        }
     }
 }
 
 .step__content{
-    width: 20rem;
+    width: 15rem;
     font-family: $body;
     font-size: 1.2em;
     line-height: 1.5;
+
+    @include responsive($xlarge) {
+        font-size: 20rem;
+    }
 }

@@ -35,11 +35,11 @@
 	}
 
     @include responsive($large) {
-        width: 50vw;
+        width: 30vw;
     }
-    
+
     @include responsive($xlarge) {
-        width: 40vw;
+        width: 50vw;
 	}
 }
 
@@ -76,7 +76,7 @@
     @include responsive($large) {
         width: 55vw;
     }
-    
+
     @include responsive($xlarge) {
         width: 45vw;
 	}

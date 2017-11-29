@@ -32,8 +32,17 @@ p {
     font-family: $body;
     font-size: 1.2em;
     line-height: 1.5;
-    
-    @include responsive($small) {
-        font-size: 1.375em;
+
+    @include responsive($xsmall) {
+        font-size: 1em;
 	}
+    @include responsive($xsmall) {
+        font-size: 1.1em;
+    }
+    @include responsive($medium) {
+        font-size: 1.2em;
+    }
+    @include responsive($xlarge) {
+        font-size: 1.375em;
+    }
 }
