@@ -7,8 +7,8 @@ import TextSlider from './../components/TextSlider'
 
 const preloader = new Preloader()
 
+// Preload Background Image of loader
 preloader.on('complete', () => {
-    console.log('complete')
     const loader = new Loader()
     const $loader = document.querySelectorAll('.loader')
     const $loaderParts = document.querySelectorAll('.loader__part')
@@ -16,10 +16,12 @@ preloader.on('complete', () => {
     const $loaderCover = document.querySelector('.loader__cover')
     const $loaderOverlay = document.querySelector('.loader__cover__overlay')
     
+    // Move white overlay on the z-axis according to loading progression
     loader.on('progress', value => {
         $loaderOverlay.style.transform = `translateX(${value}%)`
     })
     
+    // Build our hero section when loading is complete & start intro animation
     loader.on('complete', () => {
         setTimeout(() => {
             const $board = document.querySelector('.board__img')
@@ -28,7 +30,14 @@ preloader.on('complete', () => {
             const $dragCursorDot = document.querySelectorAll('.cursor__dot')
             const $dragLine = document.querySelector('.control__line')
             const $dragCircle = document.querySelector('.progress__meter')
-
+            const $dragGif = document.querySelector('.hero__gif')
+            const $logo = document.querySelector('.hero__logo')
+            const $dragText = new TextSplitter(
+                document.querySelector('.hero__caption'), {
+                    inner: true,
+                    lastWordBlue: false
+                }
+            )
             const $headlineParts = new TextSplitter(
                 document.querySelector('.headline'), {
                     inner: false,
@@ -36,16 +45,19 @@ preloader.on('complete', () => {
                 }
             )
             const $headlineRoll  = new TextSlider($headlineParts.$words[$headlineParts.$words.length - 1])
-
             const boardScene = new BoardScene(document.querySelector('.hero'))
             const timeline = new TimelineMax()
-            console.log($headlineParts.$words)
-
             const introComplete = () => {
                 $headlineRoll.play()
                 boardScene.init()
             }
 
+            // Set initial state
+            TweenMax.set($dragText.$words, {
+                y: 100
+            })
+
+            // Timiline of the animation intro
             timeline
             .staggerTo($loaderParts, 0.9, {
                 scaleX: 1,
@@ -75,6 +87,10 @@ preloader.on('complete', () => {
                 y: - window.innerHeight / 2,
                 ease: Expo.easeInOut
             }, - 0.023, '-= 1.6')
+            .to($logo, 2, {
+                y: 0,
+                ease: Expo.easeInOut
+            }, '-= 1.6')
             .staggerFrom($dragCursorDot, 0.4, {
                 opacity: 0,
                 scaleX: 0,
@@ -95,6 +111,16 @@ preloader.on('complete', () => {
             }, '-= 1.2')
             .set($loader, {
                 display: 'none'
+            })
+            .staggerTo($dragText.$words, 0.7, {
+                y: 0,
+                opacity: 1,
+                ease: Power3.easeOut
+            }, 0.02,'-= 0.9')
+            .to($dragGif, 0.7, {
+                opacity: 1,
+                y: 0,
+                ease: Power3.easeOut
             })
             .call(introComplete)
         }, 1000);

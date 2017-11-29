@@ -5,7 +5,7 @@ import {getScrollPercent} from '../utils/scroll.js'
 import map from '../utils/map.js'
 
 
-/** Class construct and manage our board scene. */
+// Class construct and manage our board scene.
 class BoardScene {
     /**
      * Create a Board Scene.
@@ -18,13 +18,15 @@ class BoardScene {
         this.$el.width           = this.$el.container.offsetWidth
         this.$el.height          = this.$el.container.offsetHeight
         this.$el.control         = this.$el.container.querySelector('.control')
-        this.$titleParts         = this.$el.container.querySelectorAll('.text-word')
+        this.$titleParts         = this.$el.container.querySelectorAll('h1 .text-word')
         this.$el.line            = this.$el.container.querySelector('.control__line')
         this.$el.cursor          = this.$el.container.querySelector('.cursor')
         this.$el.strokeCircle    = this.$el.container.querySelector('.progress')
         this.$el.strokeProgress  = this.$el.container.querySelector('.progress__value')
         this.$el.boardContainer  = this.$el.container.querySelector('.board__container')
         this.$el.board           = this.$el.container.querySelector('.board__img')
+        this.$el.grab            = this.$el.container.querySelector('.hero__grab')
+        this.$el.logo            = this.$el.container.querySelector('.hero__logo')
         this.rotationCoef        = 20
         this.$el.shadow          = this.$el.container.querySelector('.board__shadow')
 
@@ -40,6 +42,8 @@ class BoardScene {
             active: false,
             lock: false
         }
+
+        console.log(this.$el.boardContainer)
     }
 
     /**
@@ -48,6 +52,8 @@ class BoardScene {
      * @method init
      */
     init() {
+
+        this.$el.board.classList.add('levitate')
         
         // Listen when user take the cursor
         this.cursor.on('panstart', (event) => {
@@ -84,10 +90,13 @@ class BoardScene {
             this.resize()
         })
 
+        // Listen scroll
         window.addEventListener('scroll', () => {
             let scrollPercent = getScrollPercent(document.querySelector('.video-intro'))
             this.boardLeave(scrollPercent)
             this.titlePartsLeave(scrollPercent)
+            this.logoLeave(scrollPercent)
+
         })
     }
 
@@ -114,12 +123,13 @@ class BoardScene {
     boardMove(value) {
         if (this.cursor.obj.active != false) {
             if (value >= 0 && value <= 1) {
-
+                // Update cursor position
                 TweenMax.to(this.$el.cursor, 0.3, {
                     x: this.temp_move,
                     ease: Power0.easenone
                 })
 
+                // Update board position
                 TweenMax.to(this.$el.board, 0.3, {
                     y: - (this.temp_move / 5),
                     z: 0,
@@ -127,6 +137,7 @@ class BoardScene {
                     ease: Power0.easenone
                 })
 
+                // Update board shadow scale
                 TweenMax.to(this.$el.shadow, 0.3, {
                     scale: 1 + (this.temp_move / 1500),
                     ease: Power0.easenone
@@ -147,6 +158,11 @@ class BoardScene {
 
                     document.body.classList.remove('lock');
                 }, 1000);
+
+                setTimeout(() => {
+                    this.$el.grab.style.display = 'none'
+                    this.$el.control.style.display = 'none'
+                }, 2000);
             }
         }
     }
@@ -159,23 +175,27 @@ class BoardScene {
     boardEnd() {
         let middle = Math.round(this.$el.line.getBoundingClientRect().width / 2)
         if (this.temp_move >= 0 && this.temp_move >= middle) {
-            // Update Cursor position
+
+            // Update Cursor position on x axis
             TweenMax.to(this.$el.cursor, 0.7, {
                 x: this.lineWidth,
                 ease: Power3.easeOut
             })
-            // Update Cursor Stroke circle
+
+            // Update Cursor Stroke circle fill
             TweenMax.to(this.$el.strokeProgress, 0.7, {
                 strokeDashoffset: 0,
                 ease: Power3.easeOut
             })
 
+            // Update Board position on y axis
             TweenMax.to(this.$el.board, 0.7, {
                 y: - (this.lineWidth / 5),
                 z: 0,
                 ease: Power0.easenone
             })
 
+            // Scroll the content according to the height of the viewport
             setTimeout(() => {
                 TweenLite.to(window, 2, {
                     scrollTo: window.innerHeight,
@@ -183,14 +203,21 @@ class BoardScene {
                 });
                 document.body.classList.remove('lock');
             }, 1000);
+
+            // Displau none grab indicator & control because we don't need them anymore
+            setTimeout(() => {
+                this.$el.grab.style.display = 'none'
+                this.$el.control.style.display = 'none'
+            }, 2000);
+
         } else if (this.temp_move < middle) {
-            // this.$el.board.classList.add('levitate')
 
             // Update Cursor X position
             TweenMax.to(this.$el.cursor, 0.7, {
                 x: 0,
                 ease: Power3.easeOut
             })
+            
             // Update Cursor Stroke circle fill
             TweenMax.to(this.$el.strokeProgress, 0.7, {
                 strokeDashoffset: this.strokeCircum,
@@ -211,6 +238,11 @@ class BoardScene {
                         ease: Power0.easenone
                     })
             });
+
+            // Allows board to levitate again
+            setTimeout(() => {
+                this.$el.board.classList.add('levitate')
+            }, 700);
         }
     }
 
@@ -239,6 +271,18 @@ class BoardScene {
                     ease: Power0.easenone
                 })
         });
+    }
+
+    /**
+     * Update Logo Y position according to value
+     * @method logoLeave
+     * @param {float} value : value of the section scrolled
+     */
+    logoLeave(value) {
+        TweenMax.to(this.$el.logo, 0.5, {
+            y: - value * 10,
+            ease: Power0.easenone
+        })
     }
     
     /**

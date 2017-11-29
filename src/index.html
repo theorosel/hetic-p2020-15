@@ -22,7 +22,7 @@
         <![endif]-->
     </head>
     <body class="lock">
-        <!-- $Hero -->
+        <!-- $Loader -->
         <div class="loader">
             <div class="loader__cover">
                 <div class="loader__cover__overlay"></div>
@@ -34,8 +34,12 @@
                 <div class="loader__part"></div>
             </div>
         </div>
-        <!-- $Hero section -->
+        
+        <!-- $Hero -->
         <div class="hero">
+            <div class="hero__logo">
+                <img class="logo" src="assets/img/logo.png" data-load>
+            </div>
             <div class="lines">
                 <div class="line line__1 line--black"></div>
                 <div class="line line__2 line--black"></div>
@@ -52,7 +56,7 @@
                     <img src="assets/img/shadow.png" srcset="assets/img/shadow@320w.png 320w, assets/img/shadow@560w.png 560w, assets/img/shadow@720w.png 720w, assets/img/shadow@1280w.png 1280w, assets/img/shadow@1920w.png 1920w" data-load>
                 </div>
             </div>
-            <!-- $Dragger -->
+            <!-- $Control -->
             <div class="control">
                 <div class="cursor">
                     <div class="cursor__dot dot__start"></div>
@@ -65,6 +69,13 @@
                 </div>
                 <div class="control__line"></div>
                 <div class="cursor__dot dot__target"></div>
+            </div>
+            <!-- $Drag indicator-->
+            <div class="hero__bottom">
+                <div class="hero__grab">
+                    <img class="hero__gif" src="assets/img/hero-drag.gif" data-load>
+                    <p class="hero__caption">Drag to Discover</p>
+                </div>
             </div>
         </div>
 
