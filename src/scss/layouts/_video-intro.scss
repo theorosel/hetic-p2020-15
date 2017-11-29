@@ -1,10 +1,8 @@
 .video-intro {
     position: relative;
-    // width: 100vw;
-    // height: 100vh;
     margin-top: 100vh;
     overflow: hidden;
-    z-index: $zindex-2;
+    z-index: $zindex-4;
 
     video {
         width: 100%;
