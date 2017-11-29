@@ -42,8 +42,6 @@ class BoardScene {
             active: false,
             lock: false
         }
-
-        console.log(this.$el.boardContainer)
     }
 
     /**
@@ -54,13 +52,13 @@ class BoardScene {
     init() {
 
         this.$el.board.classList.add('levitate')
-        
+
         // Listen when user take the cursor
         this.cursor.on('panstart', (event) => {
             this.cursor.obj.active = true
             this.$el.board.classList.remove('levitate')
         })
-        
+
         // Listen when user move the cursor
         this.cursor.on('panmove', (event) => {
             this.cursorPosition = Math.round(this.$el.cursor.getBoundingClientRect().left) + (this.$el.cursor.offsetWidth / 2)
@@ -217,7 +215,7 @@ class BoardScene {
                 x: 0,
                 ease: Power3.easeOut
             })
-            
+
             // Update Cursor Stroke circle fill
             TweenMax.to(this.$el.strokeProgress, 0.7, {
                 strokeDashoffset: this.strokeCircum,
@@ -231,7 +229,7 @@ class BoardScene {
             })
 
             // Update title parts Y positions
-            this.$titleParts.forEach( 
+            this.$titleParts.forEach(
                 (part, index) => {
                     TweenMax.to(part, 0.5, {
                         y: 0,
@@ -264,7 +262,7 @@ class BoardScene {
      * @param {float} value : value of the section scrolled
      */
     updateTitleParts(value) {
-        this.$titleParts.forEach( 
+        this.$titleParts.forEach(
             (part, index) => {
                 TweenMax.to(part, 0.5, {
                     y: - ((value * (100 / ((index * 0.1) + 1)))),
@@ -284,7 +282,7 @@ class BoardScene {
             ease: Power0.easenone
         })
     }
-    
+
     /**
      * Get the board off the screen on z axis according to
      * @method boardLeave
@@ -318,7 +316,7 @@ class BoardScene {
      * @param {float} value : value of the section scrolled
      */
     titlePartsLeave(value) {
-        this.$titleParts.forEach( 
+        this.$titleParts.forEach(
             (part, index) => {
                 TweenMax.to(part, 0.5, {
                     y: - ((value * (10 / ((index * 0.1) + 1)))),

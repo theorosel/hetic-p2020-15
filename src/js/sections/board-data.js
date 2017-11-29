@@ -14,8 +14,6 @@ const $titles  = document.querySelectorAll('.data-box__title')
 const $unities = document.querySelectorAll('.data-box__unity')
 const $descriptions = document.querySelectorAll('.data-box__description')
 
-console.log($backgroundImage)
-
 $dataBoxes.forEach(
     function($box, index) {
         $box.style.top = index * 400 + 'px';
@@ -28,7 +26,6 @@ $dataBoxes.forEach(
  * @param {float} value : 0 to 100 - value of the scroll
  */
 function updateBoxesPosition(value) {
-    console.log(value)
     $dataBoxes.forEach(
         function($box, index) {
             TweenMax.to($box, 0.4, {
@@ -57,7 +54,6 @@ function updateBkg(value) {
 }
 
 if (window.matchMedia("(min-width: 600px)").matches) {
-    console.log('mobile')
     window.addEventListener('scroll', () => {
         if (enterInView($section)) {
             let scrollPercent = getScrollPercent($section)

@@ -117,7 +117,6 @@ intersectionObserver($section, () => {
 
 // Listeners
 $section.addEventListener('mousemove', (event) => {
-    console.log('mousemove')
     let x = event.clientX
     let y = event.clientY
 

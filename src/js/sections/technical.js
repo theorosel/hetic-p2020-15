@@ -44,7 +44,7 @@ class fullCircle{
       })
     }
 }
-`$`
+
 if (window.matchMedia("(min-width: 600px)").matches) {
 
     // create the circle only on desktop
@@ -204,7 +204,8 @@ const handleCircleFilling = () => {
     techSteps.style.position = 'fixed'
     techCircle.style.position = 'fixed'
     displayCircle()
-    // title
+
+    // title appears
     TweenMax.staggerTo($headline.$words, 1.2, {
             y: 0,
             ease: Power3.easeOut
@@ -214,6 +215,10 @@ const handleCircleFilling = () => {
     if(techPercent < allSteps.length+1){
         // fill small dots
         smallDotsProgression()
+        TweenMax.staggerTo($headline.$words, 1.2, {
+            opacity: 1,
+            ease: Power3.easeOut
+        }, 0.03)
 
         if(techPercent <= 20){
             displayStepContent(mainDots, 'active-step', 0)
@@ -263,6 +268,10 @@ const handleCircleFilling = () => {
         // circle, skate and title disappear
         removeCircle()
         wholeSkate.style.opacity = 0
+        TweenMax.to($headline.$words, 1.2, {
+            opacity: 0,
+            ease: Power3.easeOut
+        }, 0.03)
     }
 }
 
@@ -366,6 +375,10 @@ const handleTechScroll  = () => {
     else{
         techSteps.style.position = 'relative'
         removeCircle()
+        TweenMax.to($headline.$words, 1.2, {
+            opacity: 0,
+            ease: Power3.easeOut
+        }, 0.03)
     }
 }
 

@@ -6,12 +6,12 @@ class Marker {
     constructor(el) {
         this.$el             = {}
         this.$el.container   = el
-        this.$el.zone        
-        this.$el.svg         
-        this.$el.stroke      
-        this.$el.progress    
-        this.$el.content     
-        this.$el.title    
+        this.$el.zone
+        this.$el.svg
+        this.$el.stroke
+        this.$el.progress
+        this.$el.content
+        this.$el.title
         this.$el.description
         this.timelineReveal  = new TimelineMax();
         this.timelineEnter   = new TimelineMax();
@@ -29,7 +29,7 @@ class Marker {
     }
 
     build() {
-       const template = 
+       const template =
        `<div class="marker__zone"></div>
         <div class="marker__circle">
             <svg class="marker__svg">
@@ -91,7 +91,7 @@ class Marker {
 
             if (this.$el.container.classList.contain = 'active') {
                 this.$el.container.classList.remove('active')
-                
+
             }
         })
 
@@ -100,7 +100,7 @@ class Marker {
                 this.updateContentPosition(event)
             } else {
                 return false
-            }     
+            }
         })
     }
 
@@ -142,8 +142,6 @@ class Marker {
     updateContentPosition(event) {
         const mappedX = map(event.clientX, this.zoneLimits.left, this.zoneLimits.right, -1, 1)
         const mappedY = map(event.clientY, this.zoneLimits.bottom, this.zoneLimits.top, 1, -1)
-
-        console.log(mappedX, mappedY)
 
         TweenMax.to(this.$el.content, 0.3, {
             x: mappedX * 200,

@@ -13,7 +13,6 @@ class Loader {
     }
 
     init() {
-        console.log(this.srcElements)
         this.srcElements.forEach(element => {
             this.requests.push({
                 element,
@@ -31,13 +30,6 @@ class Loader {
                         this.updateProgress(index, percent);
                     }
                 })
-                // if (request.name === 'data-load') {
-                //     request.element.src = request.element.getAttribute(request.name);
-                //     request.element.removeAttribute(request.name);
-                // }
-                // .then(function (response) {
-                //     request.element.src = request.element.getAttribute(request.name);
-                // })
         })
     }
 
@@ -50,11 +42,11 @@ class Loader {
 
         this.totalProgress = Math.floor(total / this.requests.length);
 
-       
+
         if (this.totalProgress === 100) {
             this.progressEventsCall();
             this.completeEventsCall();
-        } 
+        }
         else {
             this.progressEventsCall();
         }
@@ -65,7 +57,7 @@ class Loader {
             callback(this.totalProgress);
         });
     }
-    
+
     completeEventsCall() {
         this.completeEvents.forEach(({ callback }) => {
             callback();
@@ -78,11 +70,11 @@ class Loader {
                 this.progressEvents.push({ callback });
                 console.log('progress')
                 break;
-      
+
             case 'complete':
                 this.completeEvents.push({ callback });
                 break;
-      
+
             default:
                 break;
         }

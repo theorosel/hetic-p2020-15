@@ -15,12 +15,12 @@ preloader.on('complete', () => {
     const $loaderPicture = document.querySelector('.loader__cover__picture')
     const $loaderCover = document.querySelector('.loader__cover')
     const $loaderOverlay = document.querySelector('.loader__cover__overlay')
-    
+
     // Move white overlay on the z-axis according to loading progression
     loader.on('progress', value => {
         $loaderOverlay.style.transform = `translateX(${value}%)`
     })
-    
+
     // Build our hero section when loading is complete & start intro animation
     loader.on('complete', () => {
         setTimeout(() => {

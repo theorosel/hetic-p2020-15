@@ -43,7 +43,6 @@ TweenMax.set($description.$words, {
 })
 
 intersectionObserver($section, () => {
-    console.log('yo')
     timeline
         .to($overlayEnter, 1.5, {
             scaleX: 0,
