@@ -26,6 +26,10 @@ h2 {
         font-size: 5.4em;
         line-height: 0.7;
 	}
+
+    @include responsive($large) {
+        font-size: 4em;
+    }
 }
 
 p {
@@ -36,11 +40,11 @@ p {
     @include responsive($xsmall) {
         font-size: 1em;
 	}
-    @include responsive($xsmall) {
-        font-size: 1.1em;
-    }
     @include responsive($medium) {
         font-size: 1.2em;
+    }
+    @include responsive($large) {
+        font-size: 1em;
     }
     @include responsive($xlarge) {
         font-size: 1.375em;

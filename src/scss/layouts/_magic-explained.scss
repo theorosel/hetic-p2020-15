@@ -71,7 +71,6 @@
 
 .magic-explained__description {
 
-
     .text-word {
         margin-right: 0.4em;
         margin-bottom: 0;
@@ -94,7 +93,7 @@
     position: relative;
     width: 100vw;
     height: calc(100vh /1.5);
-    margin-top: -400px;
+    margin-top: -300px;
     overflow: hidden;
     will-change: transform;
 
@@ -109,9 +108,13 @@
     @include responsive($large) {
         width: calc(100vw / 3 * 2);
         height: calc(100vh /1.5);
+        margin-top: -12rem;
     }
-
-
+    @include responsive($xlarge) {
+        width: calc(100vw / 3 * 2);
+        height: calc(100vh /1.5);
+        margin-top: -20rem;
+    }
 }
 
 .magic-explained__overlay {
