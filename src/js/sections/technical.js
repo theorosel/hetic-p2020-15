@@ -69,6 +69,7 @@ let allSteps  = [],
     mainDots  = [...mainDots]
 
 let techSection  = document.querySelector('.technical'),
+    techSteps    = document.querySelector('.technical__steps'),
     techTitle    = document.querySelector('.technical__steps h2'),
     techCircle   = document.querySelector('.technical__circle'),
     skateSection = document.querySelector('.skate__container'),
@@ -142,7 +143,7 @@ const moveSkate = () => {
 
     wholeSkate.style.position = 'fixed'
 
-    if(skatePercent < 40){
+    if(skatePercent < 37){
         skateTop = skatePercent
         skateLeft = skatePercent
 
@@ -180,6 +181,7 @@ const smallDotsProgression = () => {
 const handleCircleFilling = () => {
     let techPercent  = getScroll(techSection)
 
+    techSteps.style.position = 'fixed'
     techCircle.style.position = 'fixed'
     displayCircle()
     techTitle.classList.add('visible')
@@ -339,6 +341,7 @@ const handleTechScroll  = () => {
     }
     // remove it on other sections
     else{
+        techSteps.style.position = 'relative'
         removeCircle()
         techTitle.classList.remove('visible')
     }

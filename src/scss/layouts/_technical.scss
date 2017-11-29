@@ -5,7 +5,7 @@
 
 @keyframes activeDot{
     50%{
-        transform: scale(1.2);
+        transform: scale(1.25);
         background-color:$blue;
     }
     100%{
@@ -27,33 +27,43 @@
 
 
 .explode-skate-1{
-    transform: translateY(-100px);
+    transform: translateY(-80%);
 }
 
 .explode-skate-2{
-    transform: translateY(100px);
+    transform: translateY(80%);
 }
 
 // Floating skate
 .skate__container{
     width:100%;
     height:100vh;
+    transition : opacity ease 0.3s;
+    @include responsive($medium) {
+        height:130vh;
+    }
 }
 
 .skate__images{
     position:absolute;
     width:100%;
     height:auto;
-    left: -50%;
-    top:-50%;
+    transform: translate(-25%, -50%);
     transition : opacity ease 0.3s;
     opacity: 0;
+    @include responsive($medium) {
+        margin-top: 0;
+        transform: none;
+    }
     img{
         position: absolute;
-        width:18rem;
+        width:80%;
         height:auto;
         transition: all ease 0.3s;
-        opacity: 0.3;
+        opacity: 0;
+        @include responsive($medium) {
+            width:30%;
+        }
         &:first-child{
             z-index:2;
         }
@@ -68,32 +78,66 @@
     position: relative;
     width:100%;
     height:auto;
-    min-height:310rem;
+    min-height:100rem;
+    margin-top:80%;
     z-index: $zindex-2;
+    @include responsive($medium) {
+        min-height:310rem;
+        margin-top: 0;
+    }
 }
 
 .technical__steps{
-    position: fixed;
+    position: relative;
     width: 100%;
     height: auto;
-    top: 10%;
+    bottom: 0;
+    left:0;
+    @include responsive($medium) {
+        top: 0;
+    }
+    h2{
+        position: absolute;
+        text-transform: uppercase;
+        color:$black;
+        top: 3rem;
+        left:3rem;
+        letter-spacing: 0.1rem;
+        font-size:1.5rem;
+        transition: opacity ease 0.3s;
+        opacity: 0;
+    }
 }
 
 .step{
     width:100%;
-    height:auto;
-    position:absolute;
-    display:flex;
-    flex-direction:row;
-    flex-wrap:nowrap;
-    justify-content:space-between;
+    height: 60vh;
+    margin-bottom: 40vh;
+    background-color: #fff;
     align-items:center;
-    opacity: 0;
-    padding: 0 4rem;
+    opacity: 1;
+    padding: 3rem;
     transition : opacity ease 0.3s;
+    @include responsive($medium) {
+        position:absolute;
+        top:0;
+        left:0;
+        opacity: 0;
+        height:100vh;
+        background-color: transparent;
+        transform:none;
+        display:flex;
+        flex-direction:row;
+        flex-wrap:nowrap;
+        justify-content:space-between;
+    }
 }
 
 .step__title{
+    text-align: center;
+    @include responsive($medium) {
+        text-align: right;
+    }
     h3{
         text-transform: uppercase;
         font-family: $headline;
@@ -105,7 +149,7 @@
 }
 
 .step__content{
-    // align-self:flex-end;
+    font-family: $body;
     width: 18rem;
     line-height: 1.5rem;
 }

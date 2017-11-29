@@ -6,7 +6,7 @@ import TextSplitter from './../components/TextSplitter.js'
 
 const $section = document.querySelector('.board-data')
 const $background = document.querySelector('.board-data__background')
-const $backgroundImage =document.querySelector('.board-data__image') 
+const $backgroundImage =document.querySelector('.board-data__image')
 const $dataBoxes = document.querySelectorAll('.data-box')
 const $dataBoxesContent = document.querySelectorAll('.data-box__content')
 const timeline = new TimelineMax()
@@ -56,14 +56,14 @@ function updateBkg(value) {
     // })
 }
 
-if (window.matchMedia("(min-width: 900px)").matches) {
+if (window.matchMedia("(min-width: 600px)").matches) {
     console.log('mobile')
     window.addEventListener('scroll', () => {
         if (enterInView($section)) {
             let scrollPercent = getScrollPercent($section)
             updateBoxesPosition(scrollPercent)
         }
-    }) 
+    })
 }
 
 window.addEventListener('scroll', () => {
@@ -71,7 +71,7 @@ window.addEventListener('scroll', () => {
         let scrollPercent = getScrollPercent($section)
         updateBkg(scrollPercent)
     }
-}) 
+})
 
 intersectionObserver($section, () => {
     timeline
