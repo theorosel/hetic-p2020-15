@@ -37,18 +37,21 @@
     opacity: 1;
     padding: 3rem;
     transition : opacity ease 0.3s;
-    @include responsive($medium) {
+    @include responsive($small) {
         position:absolute;
         top:0;
         left:0;
         opacity: 0;
-        height:100vh;
+        height: 65vh;
         background-color: transparent;
         transform:none;
         display:flex;
         flex-direction:row;
         flex-wrap:nowrap;
         justify-content:space-between;
+    }
+    @include responsive($medium) {
+        height: 100vh;
     }
 }
 

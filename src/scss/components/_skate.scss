@@ -25,7 +25,7 @@
         height:auto;
         transition: all ease 0.3s;
         opacity: 0;
-        @include responsive($medium) {
+        @include responsive($small) {
             width:30%;
         }
         &:first-child{

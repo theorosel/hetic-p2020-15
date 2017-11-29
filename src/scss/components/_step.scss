@@ -3,6 +3,7 @@
     text-align: left;
     @include responsive($medium) {
         text-align: right;
+        margin-left:-2rem;
     }
     @include responsive($large) {
         width: 20rem;
@@ -44,7 +45,10 @@
     font-family: $body;
     font-size: 1.2em;
     line-height: 1.5;
-
+    @include responsive($medium) {
+        margin-right: -2rem;
+        font-size:1rem;
+    }
     @include responsive($xlarge) {
         width: 20rem;
     }
