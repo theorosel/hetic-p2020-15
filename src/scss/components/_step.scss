@@ -6,27 +6,21 @@
     h3{
         text-transform: uppercase;
         font-family: $headline;
-        font-size: 2.5rem;
-        font-weight: 400;
+        font-size: 2.125em;
+        font-weight: bold;
         color: $blue;
+        letter-spacing: -0.1rem;
         margin-bottom: 1rem;
+    }
+    p{
+        font-family: $body;
+        color:grey;
     }
 }
 
 .step__content{
+    width: 20rem;
     font-family: $body;
-    width: 18rem;
-    line-height: 1.5rem;
-}
-
-// animations
-.active-step{
-    animation: 0.2s ease-out forwards 1 activeStep;
-}
-
-@keyframes activeStep{
-    100%{
-        transform: scale(1.4);
-        box-shadow: 0px 0px 0px 4px rgba($black,0.2);
-    }
+    font-size: 1.2em;
+    line-height: 1.5;
 }

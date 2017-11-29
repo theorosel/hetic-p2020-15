@@ -16,10 +16,11 @@
 
 .dot__big{
     position: absolute;
-    width: 10px;
-    height: 10px;
+    width: 1.8rem;
+    height: 1.8rem;
     border-radius: 100%;
-    background-color:$black;
+    border: 0.15rem solid $black;
+    background-color: #fff;
     transition : all ease 0.3s;
     cursor:pointer;
     opacity: 0;
@@ -43,5 +44,17 @@
     100%{
         transform: scale(1);
         background-color:$blue;
+    }
+}
+
+.active-step{
+    animation: 0.5s ease forwards 1 activeStep;
+    transform: translate(-30%, -30%);
+}
+
+@keyframes activeStep{
+    100%{
+        transform: scale(0.8);
+        border: 0.3rem solid $blue;
     }
 }
