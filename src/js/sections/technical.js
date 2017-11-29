@@ -176,6 +176,7 @@ const smallDotsProgression = () => {
     }
 }
 
+// desktop function
 const handleCircleFilling = () => {
     let techPercent  = getScroll(techSection)
 
@@ -240,6 +241,75 @@ const handleCircleFilling = () => {
     }
 }
 
+// mobile function
+const updateSkateY = () => {
+
+    let techPercent = Math.floor(getScrollPercent(techSection))
+
+    if (techPercent < 20) {
+        TweenMax.to(skateImages[0], 0,
+            {
+                top: 0,
+                ease: Linear.easeOut
+            }
+        )
+    }
+
+    else if(techPercent >= 20 && techPercent < 50){
+        TweenMax.fromTo(skateImages[0], 0,
+            {
+                top: 0,
+                ease: Linear.easeOut
+            },
+            {
+                top: -techPercent * 6,
+                ease: Linear.easeOut
+            }
+        )
+
+        TweenMax.to(skateImages[1], 0,
+            {
+                top: -15,
+                ease: Linear.easeOut
+            }
+        )
+    }
+
+    else if(techPercent > 50 && techPercent < 85){
+        TweenMax.fromTo(skateImages[1], 0,
+            {
+                top: 0,
+                opacity: 0,
+                ease: Linear.easeOut
+            },
+            {
+                top: -techPercent * 4,
+                ease: Linear.easeOut
+            }
+        )
+
+        TweenMax.to(skateImages[2], 0,
+            {
+                top: 0,
+                ease: Linear.easeOut
+            }
+        )
+    }
+
+    else if(techPercent > 85 && techPercent <= 130){
+        TweenMax.fromTo(skateImages[2], 0,
+            {
+                top: 0,
+                ease: Linear.easeOut
+            },
+            {
+                top: -techPercent * 2.5,
+                ease: Linear.easeOut
+            }
+        )
+    }
+}
+
 /*
  *
     Scroll animation, filling the circle with different steps
@@ -264,7 +334,7 @@ const handleTechScroll  = () => {
             handleCircleFilling()
         }
         else{
-            // mobile
+            updateSkateY()
         }
     }
     // remove it on other sections
