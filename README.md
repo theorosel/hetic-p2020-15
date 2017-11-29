@@ -19,6 +19,12 @@ cd hetic-p2020-15
 # Install packages
 npm i
 ```
+## Building the app
+Use the `build` gulp task to build the project for production.
+
+```sh
+npm run build
+```
 
 ## Run the app
 In order to work on the project, we use Gulp.
@@ -26,9 +32,3 @@ In order to work on the project, we use Gulp.
 npm run dev
 ```
 
-## Building the app
-Use the `build` gulp task to build the project for production.
-
-```sh
-npm run build
-```
