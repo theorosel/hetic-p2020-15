@@ -365,10 +365,12 @@ const handleTechScroll  = () => {
     if(enterInView(techSection)) {
 
         if (window.matchMedia("(min-width: 600px)").matches) {
+            console.log('desktop')
             handleCircleFilling()
         }
         else{
             updateSkateY()
+            console.log('mobile')
         }
     }
     // remove it on other sections

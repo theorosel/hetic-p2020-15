@@ -1,0 +1,22 @@
+.footer{
+    text-align: center;
+    height: 18rem;
+    padding: 5rem 0 2rem 0;
+}
+
+.footer__logo img{
+    width: 9rem;
+    height:auto;
+}
+
+.footer__pitch img{
+    width: 12rem;
+    height:auto;
+    margin-bottom: 3rem;
+}
+
+.footer__rights{
+    font-family: $body, sans-serif;
+    color:grey;
+    font-size:0.8rem;
+}
