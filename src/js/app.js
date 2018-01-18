@@ -1,7 +1,7 @@
 import './components/LazyLoading'
 import './sections/hero'
 import './sections/video-intro'
-import './sections/technical'
+// import './sections/technical'
 import './sections/magic-explained'
 import './sections/board-data'
 import './sections/clean-design'
